@@ -9,8 +9,9 @@
     catch { return 'https://www.vahini.org/downloads.html'; }
   };
   const activityNames = {readbook:'Read the book',summary:'Summary',questions:'Questions & answers',quiz:'Quiz',notes:'My summary'};
-  const isChapterOneReadBook = () => currentBook().id==='bhagavata-vahini' && currentTopic().id==='chapter-01';
-  const tabEntries = () => Object.entries(activityNames).filter(([id])=>id!=='readbook'||isChapterOneReadBook());
+  const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02'].includes(topicId);
+  const readBookText = () => currentTopic().id==='chapter-02' ? window.VAHINI_READ_BOOK_EN_CH02 : window.VAHINI_READ_BOOK_EN;
+  const tabEntries = () => Object.entries(activityNames).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   function artwork(bookId) {
     if(bookId==='geetha-vahini') return '<figure class="book-art"><img src="assets/baba-with-krishna.jpg" width="880" height="590" alt="Bhagawan Sri Sathya Sai Baba seated beside a Sri Krishna idol"><figcaption><a href="https://archive.sssmediacentre.org/journals/vol_12/01AUG14/The-Mystical-Sport-of-Sai-Krishna.htm" target="_blank" rel="noopener noreferrer">Image: Sri Sathya Sai Media Centre ↗</a></figcaption></figure>';
     if(bookId==='ramakatha-rasavahini') return '<div class="book-art"><div class="portrait-pair"><figure><img src="assets/sri-rama.jpg" width="249" height="294" alt="Devotional painting of Lord Sri Rama holding his bow"><figcaption>Sri Rama</figcaption></figure><figure><img class="baba-portrait" src="assets/bhagawan-baba.png" width="632" height="1123" alt="Bhagawan Sri Sathya Sai Baba wearing flower garlands"><figcaption>Bhagawan Baba</figcaption></figure></div><p class="image-credit">Images: <a href="https://www.vahini.org/ramakatha/ramakatha.html" target="_blank" rel="noopener noreferrer">Vahini.org</a> · <a href="https://www.sssmediacentre.org/" target="_blank" rel="noopener noreferrer">Sai Media Centre</a></p></div>';
@@ -49,7 +50,7 @@
     if (location.hash !== hash) history.replaceState(null, '', hash);
   }
   function setStudy(bi,ti=0,tab='summary',moveFocus=false) {
-    if (!Number.isInteger(bi) || !books[bi] || !Number.isInteger(ti) || !books[bi].topics[ti] || !activityNames[tab] || (tab==='readbook' && !(books[bi].id==='bhagavata-vahini' && books[bi].topics[ti].id==='chapter-01'))) throw new Error('Choose an existing book, topic and activity.');
+    if (!Number.isInteger(bi) || !books[bi] || !Number.isInteger(ti) || !books[bi].topics[ti] || !activityNames[tab] || (tab==='readbook' && !isBhagavataReadBook(books[bi].id,books[bi].topics[ti].id))) throw new Error('Choose an existing book, topic and activity.');
     bookIndex=bi; topicIndex=ti; activeTab=tab;
     render(); updateHash();
     if(moveFocus) { $('study').scrollIntoView({block:'start'}); $('study').focus({preventScroll:true}); }
@@ -60,7 +61,7 @@
     const [b,t,a] = location.hash.slice(1).split('/');
     const bi = books.findIndex(x=>x.id===b);
     const ti = bi < 0 ? -1 : books[bi].topics.findIndex(x=>x.id===t);
-    const safeTab=a==='readbook'&&!(bi>=0&&ti>=0&&books[bi].id==='bhagavata-vahini'&&books[bi].topics[ti].id==='chapter-01')?'summary':activityNames[a] ? a : 'summary';
+    const safeTab=a==='readbook'&&!(bi>=0&&ti>=0&&isBhagavataReadBook(books[bi].id,books[bi].topics[ti].id))?'summary':activityNames[a] ? a : 'summary';
     setStudy(bi < 0 ? 0 : bi,ti < 0 ? 0 : ti,safeTab);
   }
   function render() {
@@ -84,7 +85,7 @@
     const chapterOption=(x,i)=>`<option value="${i}" ${i===topicIndex?'selected':''}>${x.part?`Part ${x.part} · Chapter ${x.chapterNumber}`:String(i+1).padStart(2,'0')} · ${escape(x.title)}</option>`;
     const chapterOptions=t.part?[...new Set(b.topics.map(x=>x.part))].map(part=>`<optgroup label="Part ${part}">${b.topics.map((x,i)=>x.part===part?chapterOption(x,i):'').join('')}</optgroup>`).join(''):b.topics.map(chapterOption).join('');
     $('topics').innerHTML=chapterMode?`<label class="sr-only" for="chapter-select">Choose a ${unit}</label><select id="chapter-select" class="chapter-select">${chapterOptions}</select><p class="chapter-guide">${t.part?'Both parts in their original chapter order':'In the book’s original order'} · 5 questions per ${unit}</p>`:b.topics.map((x,i)=>`<button data-topic="${i}" class="topic-button ${i===topicIndex?'active':''}" aria-pressed="${i===topicIndex}"><span>${String(i+1).padStart(2,'0')}</span>${escape(x.title)}</button>`).join('');
-    if(activeTab==='readbook'&&!isChapterOneReadBook()) activeTab='summary';
+    if(activeTab==='readbook'&&!isBhagavataReadBook()) activeTab='summary';
     $('study-tabs').innerHTML=tabEntries().map(([id,label])=>`<button id="tab-${id}" class="tab" role="tab" aria-controls="activity" aria-selected="${activeTab===id}" tabindex="${activeTab===id?'0':'-1'}" data-tab="${id}">${label}${id==='quiz'?`<span class="tab-count">${t.quiz.length}</span>`:''}</button>`).join('');
     $('activity').setAttribute('aria-labelledby',`tab-${activeTab}`);
     $('previous-topic').disabled=topicIndex===0;
@@ -97,9 +98,11 @@
   }
   function renderActivity() {
     const t=currentTopic(), title=`<h3 class="activity-title">${escape(t.title)}</h3>`;
-    if(activeTab==='readbook' && isChapterOneReadBook()) {
-      const paragraphs=String(window.VAHINI_READ_BOOK_EN||'').split(/\n\s*\n/).filter(Boolean);
-      $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="action-row"><button type="button" id="toggle-english-audio" data-audio-target="english-audio" class="primary-button" aria-expanded="false" aria-controls="english-audio">Listen to the English Translation</button><button type="button" id="toggle-original-audio" data-audio-target="original-telugu-audio" class="secondary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="english-audio" controls preload="none" hidden aria-label="English narration of Bhagavatha Vahini Chapter 1"><source src="assets/bhagavatha-vahini-chapter-01-english.wav" type="audio/wav">Your browser does not support audio playback.</audio><audio id="original-telugu-audio" controls preload="none" hidden aria-label="Original Telugu book, Bhagavatha Vahini Chapter 1"><source src="assets/bhagavatha-vahini-chapter-01-telugu.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
+    if(activeTab==='readbook' && isBhagavataReadBook()) {
+      const chapter=currentTopic().id==='chapter-02'?'02':'01', paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
+      const englishAudio=chapter==='02'?`<button type="button" class="primary-button" data-speech-lang="en-US" aria-pressed="false">Listen to the English Translation</button>`:`<button type="button" data-audio-target="english-audio" class="primary-button" aria-expanded="false" aria-controls="english-audio">Listen to the English Translation</button>`;
+      const englishPlayer=chapter==='02'?'':`<audio id="english-audio" controls preload="none" hidden aria-label="English narration of Bhagavata Vahini Chapter 1"><source src="assets/bhagavatha-vahini-chapter-01-english.wav" type="audio/wav">Your browser does not support audio playback.</audio>`;
+      $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="action-row">${englishAudio}<button type="button" data-audio-target="original-telugu-audio" class="secondary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div>${englishPlayer}<audio id="original-telugu-audio" controls preload="none" hidden aria-label="Original Telugu book, Bhagavata Vahini Chapter ${Number(chapter)}"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
     } else if(activeTab==='summary') {
       $('activity').innerHTML=`${title}<div class="summary-grid"><div>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">Explore the questions</button><button class="secondary-button" data-tab="quiz">Try the quiz</button></div><p class="study-note">${t.pdfStartPage?`A ${currentBook().unitLabel==='section'?'section':'chapter'} summary based only on the supplied ${escape(currentBook().title)} ${t.part?`Part ${t.part} `:''}PDF, written in our own words.`:'A brief study summary based on the linked Vahini text.'}</p></div>${referenceCard(t)}</div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(currentBook().id,t,'en');
@@ -123,6 +126,7 @@
   document.addEventListener('click',event=>{
     const button=event.target.closest('button');
     if(!button || button.disabled) return;
+    if(button.dataset.speechLang) { const s=window.speechSynthesis; if(!s) { announce('Speech playback is unavailable in this browser.'); return; } if(s.speaking) { s.cancel(); button.setAttribute('aria-pressed','false'); button.textContent='Listen to the English Translation'; return; } const chunks=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean); for(const chunk of chunks) { const utterance=new SpeechSynthesisUtterance(chunk); utterance.lang=button.dataset.speechLang; if(chunk===chunks[chunks.length-1]) utterance.onend=()=>button.setAttribute('aria-pressed','false'); s.speak(utterance); } button.setAttribute('aria-pressed','true'); button.textContent='Stop English narration'; return; }
     if(button.dataset.audioTarget) { const audio=$(button.dataset.audioTarget); const opening=audio.hidden; audio.hidden=!opening; button.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus(); }
     else if(button.dataset.book!==undefined) setStudy(Number(button.dataset.book),0,'summary',true);
     else if(button.dataset.topic!==undefined) setStudy(bookIndex,Number(button.dataset.topic),'summary');

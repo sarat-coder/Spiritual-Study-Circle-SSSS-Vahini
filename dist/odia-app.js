@@ -30,8 +30,9 @@
   const book = () => books[bookIndex];
   const unit = () => book().unitLabel === 'section' ? 'ଅଂଶ' : 'ଅଧ୍ୟାୟ';
   const tabs = {readbook:'ପୁସ୍ତକ ପଢ଼ନ୍ତୁ', summary:'ସାରାଂଶ', questions:'ପ୍ରଶ୍ନୋତ୍ତର', quiz:'ପ୍ରଶ୍ନମାଳା', notes:'ମୋ ସାରାଂଶ'};
-  const isChapterOneReadBook = () => book().id==='bhagavata-vahini' && current().id==='chapter-01';
-  const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isChapterOneReadBook());
+  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02'].includes(chapterId);
+  const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_OR_CH02 : window.VAHINI_READ_BOOK_OR;
+  const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   const attempts = new Map(), notes = new Map();
   let index = 0, tab = 'summary';
   const current = () => chapters[index];
@@ -42,7 +43,7 @@
   const source = t => `<a href="${pdfLink(t)}" target="_blank" rel="noopener noreferrer">ମୂଳ ପାଠ: PDF ପୃଷ୍ଠା ${num(t.pdfStartPage)}–${num(t.pdfEndPage)} ↗</a>`;
   const focusActivity = () => { $('activity').focus({preventScroll:true}); $('activity').scrollIntoView({block:'start'}); };
   function go(i, nextTab = 'summary') {
-    if (!chapters[i] || !Object.hasOwn(tabs, nextTab) || (nextTab==='readbook'&&!isChapterOneReadBook())) return;
+    if (!chapters[i] || !Object.hasOwn(tabs, nextTab) || (nextTab==='readbook'&&!isBhagavataReadBook('bhagavata-vahini',chapters[i].id))) return;
     index = i; tab = nextTab;
     const hash = `#${book().id}/${current().id}/${tab}`;
     history.replaceState(null, '', hash);
@@ -58,7 +59,7 @@
     const bi = books.findIndex(b => b.id === bookId);
     bookIndex = bi < 0 ? 0 : bi; chapters = book().chapters;
     const i = chapters.findIndex(t => t.id === chapter);
-    go(i < 0 ? 0 : i, activity==='readbook'&&!(book().id==='bhagavata-vahini'&&chapters[i]?.id==='chapter-01')?'summary':Object.hasOwn(tabs, activity) ? activity : 'summary');
+    go(i < 0 ? 0 : i, activity==='readbook'&&!isBhagavataReadBook(book().id,chapters[i]?.id)?'summary':Object.hasOwn(tabs, activity) ? activity : 'summary');
   }
   function render() {
     const t = current();
@@ -83,9 +84,9 @@
   }
   function renderActivity() {
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
-    if (tab === 'readbook' && isChapterOneReadBook()) {
-      const paragraphs=String(window.VAHINI_READ_BOOK_OR||'').split(/\n\s*\n/).filter(Boolean);
-      $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="action-row"><button type="button" id="toggle-original-audio" class="primary-button" data-audio-target="original-telugu-audio" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="original-telugu-audio" controls preload="none" hidden aria-label="ଭାଗବତ ବାହିନୀ ପ୍ରଥମ ଅଧ୍ୟାୟର ମୂଳ ତେଲୁଗୁ ପୁସ୍ତକ"><source src="assets/bhagavatha-vahini-chapter-01-telugu.mp3" type="audio/mpeg">ଆପଣଙ୍କ ବ୍ରାଉଜର ଅଡ଼ିଓ ଚଲାଇବାକୁ ସମର୍ଥନ କରେ ନାହିଁ।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+    if (tab === 'readbook' && isBhagavataReadBook()) {
+      const chapter=current().id==='chapter-02'?'02':'01', paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
+      $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="action-row"><button type="button" class="primary-button" data-audio-target="original-telugu-audio" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="original-telugu-audio" controls preload="none" hidden aria-label="ଭାଗବତ ବାହିନୀ ଅଧ୍ୟାୟ ${Number(chapter)}ର ମୂଳ ତେଲୁଗୁ ପୁସ୍ତକ"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">ଆପଣଙ୍କ ବ୍ରାଉଜର ଅଡ଼ିଓ ଚଲାଇବାକୁ ସମର୍ଥନ କରେ ନାହିଁ।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
     } else if (tab === 'summary') {
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">ପ୍ରଶ୍ନୋତ୍ତର ପଢ଼ନ୍ତୁ</button><button class="secondary-button" data-tab="quiz">ପ୍ରଶ୍ନମାଳା ଚେଷ୍ଟା କରନ୍ତୁ</button></div><p class="study-note">ପ୍ରଦତ୍ତ ପୁସ୍ତକ ଉପରେ ଆଧାରିତ ଅଧ୍ୟୟନ ସାରାଂଶର ଓଡ଼ିଆ ରୂପାନ୍ତର।</p></div><aside class="source-card"><p class="eyebrow">ମୂଳ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ</p><h4>${unit()} ${num(index+1)} · ${esc(t.title)}</h4><p>ସମ୍ପୂର୍ଣ୍ଣ ଶିକ୍ଷା ଓ ପ୍ରସଙ୍ଗ ପାଇଁ ପ୍ରଦତ୍ତ ଇଂରାଜୀ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ।</p>${source(t)}</aside></div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'or');
