@@ -29,7 +29,7 @@
   let bookIndex = 0, chapters = books[0]?.chapters || [];
   const book = () => books[bookIndex];
   const tabs = {readbook:'पुस्तक पढ़ें', summary:'सारांश', questions:'प्रश्नोत्तर', quiz:'प्रश्नमाला', notes:'मेरा सारांश'};
-  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02'].includes(chapterId);
+  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03'].includes(chapterId);
   const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_HI_CH02 : window.VAHINI_READ_BOOK_HI;
   const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   const attempts = new Map(), notes = new Map();
@@ -80,10 +80,15 @@
   function renderActivity() {
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
     if (tab === 'readbook' && isBhagavataReadBook()) {
-      const chapter=current().id==='chapter-02'?'02':'01', paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
-      const hindiAudio=chapter==='02'?`<button type="button" class="primary-button" data-speech-lang="hi-IN" aria-pressed="false">हिंदी अनुवाद सुनें</button>`:`<button type="button" class="primary-button" data-audio-target="hindi-chapter-audio" aria-expanded="false" aria-controls="hindi-chapter-audio">हिंदी अनुवाद सुनें</button>`;
-      const hindiPlayer=chapter==='02'?'':`<audio id="hindi-chapter-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय १ का हिंदी पाठ"><source src="assets/bhagavatha-vahini-chapter-01-hindi.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio>`;
-      $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="action-row">${hindiAudio}<button type="button" class="secondary-button" data-audio-target="original-telugu-audio" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div>${hindiPlayer}<audio id="original-telugu-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय ${Number(chapter)} की मूल तेलुगु पुस्तक"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+      const chapter=current().id==='chapter-03'?'03':current().id==='chapter-02'?'02':'01';
+      if(chapter==='03') {
+        $('activity').innerHTML = `${heading}<p class="qa-intro">अध्याय का संक्षिप्त परिचय · हिंदी</p>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><a class="primary-button" href="https://www.ssssahitya.org/vahinis/bhagavata-vahini/child-parikshit-and-the-prophecy" target="_blank" rel="noopener noreferrer">पूरा अध्याय पढ़ें ↗</a><a class="secondary-button" href="https://www.ssssahitya.org/vahinis/bhagavata-vahini/child-parikshit-and-the-prophecy" target="_blank" rel="noopener noreferrer">Listen the Original Telugu Book ↗</a></div>`;
+      } else {
+        const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
+        const hindiAudio=chapter==='02'?`<button type="button" class="primary-button" data-speech-lang="hi-IN" aria-pressed="false">हिंदी अनुवाद सुनें</button>`:`<button type="button" class="primary-button" data-audio-target="hindi-chapter-audio" aria-expanded="false" aria-controls="hindi-chapter-audio">हिंदी अनुवाद सुनें</button>`;
+        const hindiPlayer=chapter==='02'?'':`<audio id="hindi-chapter-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय १ का हिंदी पाठ"><source src="assets/bhagavatha-vahini-chapter-01-hindi.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio>`;
+        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="action-row">${hindiAudio}<button type="button" class="secondary-button" data-audio-target="original-telugu-audio" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div>${hindiPlayer}<audio id="original-telugu-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय ${Number(chapter)} की मूल तेलुगु पुस्तक"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+      }
     } else if (tab === 'summary') {
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">प्रश्नोत्तर पढ़ें</button><button class="secondary-button" data-tab="quiz">प्रश्नमाला हल करें</button></div><p class="study-note">प्रदत्त पुस्तक पर आधारित अध्ययन सारांश का हिंदी रूपांतरण।</p></div><aside class="source-card"><p class="eyebrow">मूल पुस्तक पढ़ें</p><h4>${esc(t.title)}</h4><p>संपूर्ण शिक्षा और संदर्भ के लिए प्रदत्त अंग्रेज़ी पुस्तक पढ़ें।</p>${source(t)}</aside></div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'hi');

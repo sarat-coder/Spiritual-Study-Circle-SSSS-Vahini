@@ -6489,8 +6489,8 @@ window.VAHINI_BOOKS = [
       },
       {
         "id": "chapter-03",
-        "title": "Child Parikshith and the Prophecy\r",
-        "chapter": "Chapter 3 · Child Parikshith and the Prophecy\r",
+        "title": "Child Parikshit and the Prophecy\r",
+        "chapter": "Chapter 3 · Child Parikshit and the Prophecy\r",
         "chapterNumber": 3,
         "pdfStartPage": 19,
         "pdfEndPage": 21,

@@ -9,7 +9,7 @@
     catch { return 'https://www.vahini.org/downloads.html'; }
   };
   const activityNames = {readbook:'Read the book',summary:'Summary',questions:'Questions & answers',quiz:'Quiz',notes:'My summary'};
-  const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02'].includes(topicId);
+  const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03'].includes(topicId);
   const readBookText = () => currentTopic().id==='chapter-02' ? window.VAHINI_READ_BOOK_EN_CH02 : window.VAHINI_READ_BOOK_EN;
   const tabEntries = () => Object.entries(activityNames).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   function artwork(bookId) {
@@ -99,10 +99,15 @@
   function renderActivity() {
     const t=currentTopic(), title=`<h3 class="activity-title">${escape(t.title)}</h3>`;
     if(activeTab==='readbook' && isBhagavataReadBook()) {
-      const chapter=currentTopic().id==='chapter-02'?'02':'01', paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
-      const englishAudio=chapter==='02'?`<button type="button" class="primary-button" data-speech-lang="en-US" aria-pressed="false">Listen to the English Translation</button>`:`<button type="button" data-audio-target="english-audio" class="primary-button" aria-expanded="false" aria-controls="english-audio">Listen to the English Translation</button>`;
-      const englishPlayer=chapter==='02'?'':`<audio id="english-audio" controls preload="none" hidden aria-label="English narration of Bhagavata Vahini Chapter 1"><source src="assets/bhagavatha-vahini-chapter-01-english.wav" type="audio/wav">Your browser does not support audio playback.</audio>`;
-      $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="action-row">${englishAudio}<button type="button" data-audio-target="original-telugu-audio" class="secondary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div>${englishPlayer}<audio id="original-telugu-audio" controls preload="none" hidden aria-label="Original Telugu book, Bhagavata Vahini Chapter ${Number(chapter)}"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
+      const chapter=currentTopic().id==='chapter-03'?'03':currentTopic().id==='chapter-02'?'02':'01';
+      if(chapter==='03') {
+        $('activity').innerHTML=`${title}<p class="qa-intro">Chapter overview · English</p>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}<div class="action-row"><a class="primary-button" href="https://www.ssssahitya.org/vahinis/bhagavata-vahini/child-parikshit-and-the-prophecy" target="_blank" rel="noopener noreferrer">Read the full Chapter 3 ↗</a><a class="secondary-button" href="https://www.ssssahitya.org/vahinis/bhagavata-vahini/child-parikshit-and-the-prophecy" target="_blank" rel="noopener noreferrer">Listen the Original Telugu Book ↗</a></div>`;
+      } else {
+        const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
+        const englishAudio=chapter==='02'?`<button type="button" class="primary-button" data-speech-lang="en-US" aria-pressed="false">Listen to the English Translation</button>`:`<button type="button" data-audio-target="english-audio" class="primary-button" aria-expanded="false" aria-controls="english-audio">Listen to the English Translation</button>`;
+        const englishPlayer=chapter==='02'?'':`<audio id="english-audio" controls preload="none" hidden aria-label="English narration of Bhagavata Vahini Chapter 1"><source src="assets/bhagavatha-vahini-chapter-01-english.wav" type="audio/wav">Your browser does not support audio playback.</audio>`;
+        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="action-row">${englishAudio}<button type="button" data-audio-target="original-telugu-audio" class="secondary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div>${englishPlayer}<audio id="original-telugu-audio" controls preload="none" hidden aria-label="Original Telugu book, Bhagavata Vahini Chapter ${Number(chapter)}"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
+      }
     } else if(activeTab==='summary') {
       $('activity').innerHTML=`${title}<div class="summary-grid"><div>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">Explore the questions</button><button class="secondary-button" data-tab="quiz">Try the quiz</button></div><p class="study-note">${t.pdfStartPage?`A ${currentBook().unitLabel==='section'?'section':'chapter'} summary based only on the supplied ${escape(currentBook().title)} ${t.part?`Part ${t.part} `:''}PDF, written in our own words.`:'A brief study summary based on the linked Vahini text.'}</p></div>${referenceCard(t)}</div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(currentBook().id,t,'en');
