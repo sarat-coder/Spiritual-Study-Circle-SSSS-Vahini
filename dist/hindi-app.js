@@ -80,7 +80,7 @@
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
     if (tab === 'readbook' && isChapterOneReadBook()) {
       const paragraphs=String(window.VAHINI_READ_BOOK_HI||'').split(/\n\s*\n/).filter(Boolean);
-      $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="action-row"><button type="button" id="toggle-original-audio" class="primary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="original-telugu-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय १ की मूल तेलुगु पुस्तक"><source src="assets/bhagavatha-vahini-chapter-01-telugu.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+      $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="action-row"><button type="button" class="primary-button" data-audio-target="hindi-chapter-audio" aria-expanded="false" aria-controls="hindi-chapter-audio">हिंदी अनुवाद सुनें</button><button type="button" id="toggle-original-audio" class="secondary-button" data-audio-target="original-telugu-audio" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="hindi-chapter-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय १ का हिंदी पाठ"><source src="assets/bhagavatha-vahini-chapter-01-hindi.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio><audio id="original-telugu-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय १ की मूल तेलुगु पुस्तक"><source src="assets/bhagavatha-vahini-chapter-01-telugu.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
     } else if (tab === 'summary') {
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">प्रश्नोत्तर पढ़ें</button><button class="secondary-button" data-tab="quiz">प्रश्नमाला हल करें</button></div><p class="study-note">प्रदत्त पुस्तक पर आधारित अध्ययन सारांश का हिंदी रूपांतरण।</p></div><aside class="source-card"><p class="eyebrow">मूल पुस्तक पढ़ें</p><h4>${esc(t.title)}</h4><p>संपूर्ण शिक्षा और संदर्भ के लिए प्रदत्त अंग्रेज़ी पुस्तक पढ़ें।</p>${source(t)}</aside></div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'hi');
@@ -98,7 +98,7 @@
   }
   document.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b || b.disabled) return;
-    if (b.id==='toggle-original-audio') {const audio=$('original-telugu-audio'), opening=audio.hidden; audio.hidden=!opening; b.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus();}
+    if (b.dataset.audioTarget) {const audio=$(b.dataset.audioTarget), opening=audio.hidden; audio.hidden=!opening; b.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus();}
     else if (b.dataset.chapter !== undefined) {go(Number(b.dataset.chapter));focusActivity();}
     else if (b.dataset.tab) {go(index,b.dataset.tab);$('tab-'+tab).focus({preventScroll:true});}
     else if (b.id === 'previous-topic') {go(index-1);focusActivity();}

@@ -141,7 +141,7 @@ All 15 works now have complete chapter or section coverage from the user-supplie
 - Personal summaries save automatically to local browser storage, keyed by book and topic. Nothing is uploaded; no accounts or shared submissions exist.
 - Book, topic and activity are addressable in URL fragments.
 - Responsive layout, keyboard-operable tabs, native form controls and source links.
-- Bhagavatha Vahini Chapter 1 includes a full-text “Read the book” section in English, Hindi and Odia, with the supplied original Telugu audio recording. The English page also has a synthesized English narration of the chapter.
+- Bhagavatha Vahini Chapter 1 includes a full-text “Read the book” section in English, Hindi and Odia, with the supplied original Telugu audio recording. Each language page includes a separate synthesized narration (English, Hindi or Odia), alongside the original Telugu recording. Hindi uses a neural Hindi voice; Odia uses eSpeak NG’s Oriya voice, which sounds more synthetic.
 
 ## Files
 
