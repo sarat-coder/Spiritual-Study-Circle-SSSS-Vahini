@@ -28,7 +28,9 @@
   });
   let bookIndex = 0, chapters = books[0]?.chapters || [];
   const book = () => books[bookIndex];
-  const tabs = {summary:'सारांश', questions:'प्रश्नोत्तर', quiz:'प्रश्नमाला', notes:'मेरा सारांश'};
+  const tabs = {readbook:'पुस्तक पढ़ें', summary:'सारांश', questions:'प्रश्नोत्तर', quiz:'प्रश्नमाला', notes:'मेरा सारांश'};
+  const isChapterOneReadBook = () => book().id==='bhagavata-vahini' && current().id==='chapter-01';
+  const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isChapterOneReadBook());
   const attempts = new Map(), notes = new Map();
   let index = 0, tab = 'summary';
   const current = () => chapters[index];
@@ -39,7 +41,7 @@
   const source = t => `<a href="${pdfLink(t)}" target="_blank" rel="noopener noreferrer">मूल पाठ: PDF पृष्ठ ${num(t.pdfStartPage)}–${num(t.pdfEndPage)} ↗</a>`;
   const focusActivity = () => { $('activity').focus({preventScroll:true}); $('activity').scrollIntoView({block:'start'}); };
   function go(i, nextTab = 'summary') {
-    if (!chapters[i] || !Object.hasOwn(tabs, nextTab)) return;
+    if (!chapters[i] || !Object.hasOwn(tabs, nextTab) || (nextTab==='readbook'&&!isChapterOneReadBook())) return;
     index = i; tab = nextTab;
     const hash = `#${book().id}/${current().id}/${tab}`;
     history.replaceState(null, '', hash);
@@ -56,7 +58,7 @@
     const bi = books.findIndex(b => b.id === bookId);
     bookIndex = bi < 0 ? 0 : bi; chapters = book().chapters;
     const i = chapters.findIndex(t => t.id === chapter);
-    go(i < 0 ? 0 : i, Object.hasOwn(tabs, activity) ? activity : 'summary');
+    go(i < 0 ? 0 : i, activity==='readbook'&&!(book().id==='bhagavata-vahini'&&chapters[i]?.id==='chapter-01')?'summary':Object.hasOwn(tabs, activity) ? activity : 'summary');
   }
   function render() {
     const t = current();
@@ -68,7 +70,7 @@
     $('chapter-list').innerHTML = chapters.map((c,i) => `<button class="book-item ${i===index?'active':''}" data-chapter="${i}" ${i===index?'aria-current="true"':''}><span class="book-number">${num(i+1)}</span><span class="book-name">${esc(c.title)}</span></button>`).join('');
     $('chapter-select').innerHTML = chapters.map((c,i) => `<option value="${i}" ${i===index?'selected':''}>${num(i+1)} · ${esc(c.title)}</option>`).join('');
     $('topic-position').textContent = `अध्याय ${num(index+1)} / ${num(chapters.length)}`;
-    $('study-tabs').innerHTML = Object.entries(tabs).map(([id,label]) => `<button id="tab-${id}" class="tab" role="tab" aria-controls="activity" aria-selected="${tab===id}" tabindex="${tab===id?0:-1}" data-tab="${id}">${label}</button>`).join('');
+    $('study-tabs').innerHTML = tabEntries().map(([id,label]) => `<button id="tab-${id}" class="tab" role="tab" aria-controls="activity" aria-selected="${tab===id}" tabindex="${tab===id?0:-1}" data-tab="${id}">${label}</button>`).join('');
     $('activity').setAttribute('aria-labelledby',`tab-${tab}`);
     $('previous-topic').disabled = index === 0;
     $('next-topic').disabled = index === chapters.length-1;
@@ -76,7 +78,10 @@
   }
   function renderActivity() {
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
-    if (tab === 'summary') {
+    if (tab === 'readbook' && isChapterOneReadBook()) {
+      const paragraphs=String(window.VAHINI_READ_BOOK_HI||'').split(/\n\s*\n/).filter(Boolean);
+      $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="action-row"><button type="button" id="toggle-original-audio" class="primary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="original-telugu-audio" controls preload="none" hidden aria-label="भागवत वाहिनी अध्याय १ की मूल तेलुगु पुस्तक"><source src="assets/bhagavatha-vahini-chapter-01-telugu.mp3" type="audio/mpeg">आपका ब्राउज़र ऑडियो चलाने का समर्थन नहीं करता।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+    } else if (tab === 'summary') {
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">प्रश्नोत्तर पढ़ें</button><button class="secondary-button" data-tab="quiz">प्रश्नमाला हल करें</button></div><p class="study-note">प्रदत्त पुस्तक पर आधारित अध्ययन सारांश का हिंदी रूपांतरण।</p></div><aside class="source-card"><p class="eyebrow">मूल पुस्तक पढ़ें</p><h4>${esc(t.title)}</h4><p>संपूर्ण शिक्षा और संदर्भ के लिए प्रदत्त अंग्रेज़ी पुस्तक पढ़ें।</p>${source(t)}</aside></div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'hi');
     } else if (tab === 'questions') {
@@ -93,7 +98,8 @@
   }
   document.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b || b.disabled) return;
-    if (b.dataset.chapter !== undefined) {go(Number(b.dataset.chapter));focusActivity();}
+    if (b.id==='toggle-original-audio') {const audio=$('original-telugu-audio'), opening=audio.hidden; audio.hidden=!opening; b.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus();}
+    else if (b.dataset.chapter !== undefined) {go(Number(b.dataset.chapter));focusActivity();}
     else if (b.dataset.tab) {go(index,b.dataset.tab);$('tab-'+tab).focus({preventScroll:true});}
     else if (b.id === 'previous-topic') {go(index-1);focusActivity();}
     else if (b.id === 'next-topic') {go(index+1);focusActivity();}
@@ -125,7 +131,7 @@
   });
   $('study-tabs').addEventListener('keydown', e => {
     if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
-    e.preventDefault(); const keys=Object.keys(tabs), i=keys.indexOf(tab);
+    e.preventDefault(); const keys=tabEntries().map(([id])=>id), i=keys.indexOf(tab);
     go(index,keys[e.key==='Home'?0:e.key==='End'?keys.length-1:(i+(e.key==='ArrowRight'?1:-1)+keys.length)%keys.length]);
     $('tab-'+tab).focus();
   });

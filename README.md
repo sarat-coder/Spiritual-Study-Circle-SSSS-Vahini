@@ -141,6 +141,7 @@ All 15 works now have complete chapter or section coverage from the user-supplie
 - Personal summaries save automatically to local browser storage, keyed by book and topic. Nothing is uploaded; no accounts or shared submissions exist.
 - Book, topic and activity are addressable in URL fragments.
 - Responsive layout, keyboard-operable tabs, native form controls and source links.
+- Bhagavatha Vahini Chapter 1 includes a full-text “Read the book” section in English, Hindi and Odia, with the supplied original Telugu audio recording.
 
 ## Files
 
@@ -148,6 +149,8 @@ All 15 works now have complete chapter or section coverage from the user-supplie
 - `dist/styles.css`: responsive visual styles.
 - `dist/content.js`: source-linked authored study material.
 - `dist/app.js`: navigation, questions, quizzes, personal notes and browser interaction.
+- `dist/read-book-en.js`, `dist/read-book-hi.js`, `dist/read-book-or.js`: Chapter 1 full-text reading in English, Hindi and Odia.
+- `dist/assets/bhagavatha-vahini-chapter-01-telugu.mp3`: supplied Telugu Chapter 1 recording.
 - `dist/assets/`: 16 source PDFs (Ramakatha has two parts) and three devotional images.
 - `.openai/hosting.json`: the registered Site identity and static deployment directory.
 

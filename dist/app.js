@@ -8,7 +8,9 @@
     try { const u = new URL(value); return u.protocol === 'https:' && ['vahini.org','www.vahini.org'].includes(u.hostname) ? escape(u.href) : 'https://www.vahini.org/downloads.html'; }
     catch { return 'https://www.vahini.org/downloads.html'; }
   };
-  const activityNames = {summary:'Summary',questions:'Questions & answers',quiz:'Quiz',notes:'My summary'};
+  const activityNames = {readbook:'Read the book',summary:'Summary',questions:'Questions & answers',quiz:'Quiz',notes:'My summary'};
+  const isChapterOneReadBook = () => currentBook().id==='bhagavata-vahini' && currentTopic().id==='chapter-01';
+  const tabEntries = () => Object.entries(activityNames).filter(([id])=>id!=='readbook'||isChapterOneReadBook());
   function artwork(bookId) {
     if(bookId==='geetha-vahini') return '<figure class="book-art"><img src="assets/baba-with-krishna.jpg" width="880" height="590" alt="Bhagawan Sri Sathya Sai Baba seated beside a Sri Krishna idol"><figcaption><a href="https://archive.sssmediacentre.org/journals/vol_12/01AUG14/The-Mystical-Sport-of-Sai-Krishna.htm" target="_blank" rel="noopener noreferrer">Image: Sri Sathya Sai Media Centre ↗</a></figcaption></figure>';
     if(bookId==='ramakatha-rasavahini') return '<div class="book-art"><div class="portrait-pair"><figure><img src="assets/sri-rama.jpg" width="249" height="294" alt="Devotional painting of Lord Sri Rama holding his bow"><figcaption>Sri Rama</figcaption></figure><figure><img class="baba-portrait" src="assets/bhagawan-baba.png" width="632" height="1123" alt="Bhagawan Sri Sathya Sai Baba wearing flower garlands"><figcaption>Bhagawan Baba</figcaption></figure></div><p class="image-credit">Images: <a href="https://www.vahini.org/ramakatha/ramakatha.html" target="_blank" rel="noopener noreferrer">Vahini.org</a> · <a href="https://www.sssmediacentre.org/" target="_blank" rel="noopener noreferrer">Sai Media Centre</a></p></div>';
@@ -47,7 +49,7 @@
     if (location.hash !== hash) history.replaceState(null, '', hash);
   }
   function setStudy(bi,ti=0,tab='summary',moveFocus=false) {
-    if (!Number.isInteger(bi) || !books[bi] || !Number.isInteger(ti) || !books[bi].topics[ti] || !activityNames[tab]) throw new Error('Choose an existing book, topic and activity.');
+    if (!Number.isInteger(bi) || !books[bi] || !Number.isInteger(ti) || !books[bi].topics[ti] || !activityNames[tab] || (tab==='readbook' && !(books[bi].id==='bhagavata-vahini' && books[bi].topics[ti].id==='chapter-01'))) throw new Error('Choose an existing book, topic and activity.');
     bookIndex=bi; topicIndex=ti; activeTab=tab;
     render(); updateHash();
     if(moveFocus) { $('study').scrollIntoView({block:'start'}); $('study').focus({preventScroll:true}); }
@@ -58,7 +60,8 @@
     const [b,t,a] = location.hash.slice(1).split('/');
     const bi = books.findIndex(x=>x.id===b);
     const ti = bi < 0 ? -1 : books[bi].topics.findIndex(x=>x.id===t);
-    setStudy(bi < 0 ? 0 : bi,ti < 0 ? 0 : ti,activityNames[a] ? a : 'summary');
+    const safeTab=a==='readbook'&&!(bi>=0&&ti>=0&&books[bi].id==='bhagavata-vahini'&&books[bi].topics[ti].id==='chapter-01')?'summary':activityNames[a] ? a : 'summary';
+    setStudy(bi < 0 ? 0 : bi,ti < 0 ? 0 : ti,safeTab);
   }
   function render() {
     const b=currentBook(),t=currentTopic();
@@ -81,7 +84,8 @@
     const chapterOption=(x,i)=>`<option value="${i}" ${i===topicIndex?'selected':''}>${x.part?`Part ${x.part} · Chapter ${x.chapterNumber}`:String(i+1).padStart(2,'0')} · ${escape(x.title)}</option>`;
     const chapterOptions=t.part?[...new Set(b.topics.map(x=>x.part))].map(part=>`<optgroup label="Part ${part}">${b.topics.map((x,i)=>x.part===part?chapterOption(x,i):'').join('')}</optgroup>`).join(''):b.topics.map(chapterOption).join('');
     $('topics').innerHTML=chapterMode?`<label class="sr-only" for="chapter-select">Choose a ${unit}</label><select id="chapter-select" class="chapter-select">${chapterOptions}</select><p class="chapter-guide">${t.part?'Both parts in their original chapter order':'In the book’s original order'} · 5 questions per ${unit}</p>`:b.topics.map((x,i)=>`<button data-topic="${i}" class="topic-button ${i===topicIndex?'active':''}" aria-pressed="${i===topicIndex}"><span>${String(i+1).padStart(2,'0')}</span>${escape(x.title)}</button>`).join('');
-    $('study-tabs').innerHTML=Object.entries(activityNames).map(([id,label])=>`<button id="tab-${id}" class="tab" role="tab" aria-controls="activity" aria-selected="${activeTab===id}" tabindex="${activeTab===id?'0':'-1'}" data-tab="${id}">${label}${id==='quiz'?`<span class="tab-count">${t.quiz.length}</span>`:''}</button>`).join('');
+    if(activeTab==='readbook'&&!isChapterOneReadBook()) activeTab='summary';
+    $('study-tabs').innerHTML=tabEntries().map(([id,label])=>`<button id="tab-${id}" class="tab" role="tab" aria-controls="activity" aria-selected="${activeTab===id}" tabindex="${activeTab===id?'0':'-1'}" data-tab="${id}">${label}${id==='quiz'?`<span class="tab-count">${t.quiz.length}</span>`:''}</button>`).join('');
     $('activity').setAttribute('aria-labelledby',`tab-${activeTab}`);
     $('previous-topic').disabled=topicIndex===0;
     $('next-topic').disabled=topicIndex===b.topics.length-1;
@@ -93,7 +97,10 @@
   }
   function renderActivity() {
     const t=currentTopic(), title=`<h3 class="activity-title">${escape(t.title)}</h3>`;
-    if(activeTab==='summary') {
+    if(activeTab==='readbook' && isChapterOneReadBook()) {
+      const paragraphs=String(window.VAHINI_READ_BOOK_EN||'').split(/\n\s*\n/).filter(Boolean);
+      $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="action-row"><button type="button" id="toggle-original-audio" class="primary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="original-telugu-audio" controls preload="none" hidden aria-label="Original Telugu book, Bhagavatha Vahini Chapter 1"><source src="assets/bhagavatha-vahini-chapter-01-telugu.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
+    } else if(activeTab==='summary') {
       $('activity').innerHTML=`${title}<div class="summary-grid"><div>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">Explore the questions</button><button class="secondary-button" data-tab="quiz">Try the quiz</button></div><p class="study-note">${t.pdfStartPage?`A ${currentBook().unitLabel==='section'?'section':'chapter'} summary based only on the supplied ${escape(currentBook().title)} ${t.part?`Part ${t.part} `:''}PDF, written in our own words.`:'A brief study summary based on the linked Vahini text.'}</p></div>${referenceCard(t)}</div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(currentBook().id,t,'en');
     } else if(activeTab==='questions') {
@@ -116,7 +123,8 @@
   document.addEventListener('click',event=>{
     const button=event.target.closest('button');
     if(!button || button.disabled) return;
-    if(button.dataset.book!==undefined) setStudy(Number(button.dataset.book),0,'summary',true);
+    if(button.id==='toggle-original-audio') { const audio=$('original-telugu-audio'); const opening=audio.hidden; audio.hidden=!opening; button.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus(); }
+    else if(button.dataset.book!==undefined) setStudy(Number(button.dataset.book),0,'summary',true);
     else if(button.dataset.topic!==undefined) setStudy(bookIndex,Number(button.dataset.topic),'summary');
     else if(button.dataset.tab) {setStudy(bookIndex,topicIndex,button.dataset.tab);$('tab-'+activeTab).focus({preventScroll:true});}
     else if(button.id==='previous-topic') {setStudy(bookIndex,topicIndex-1);focusActivity();}
@@ -157,7 +165,7 @@
   $('study-tabs').addEventListener('keydown',e=>{
     if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
     e.preventDefault();
-    const ids=Object.keys(activityNames);let i=ids.indexOf(activeTab);
+    const ids=tabEntries().map(([id])=>id);let i=ids.indexOf(activeTab);
     i=e.key==='Home'?0:e.key==='End'?ids.length-1:(i+(e.key==='ArrowRight'?1:-1)+ids.length)%ids.length;
     setStudy(bookIndex,topicIndex,ids[i]);$('tab-'+activeTab).focus();
   });

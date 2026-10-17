@@ -29,7 +29,9 @@
   let bookIndex = 0, chapters = books[0]?.chapters || [];
   const book = () => books[bookIndex];
   const unit = () => book().unitLabel === 'section' ? 'ଅଂଶ' : 'ଅଧ୍ୟାୟ';
-  const tabs = {summary:'ସାରାଂଶ', questions:'ପ୍ରଶ୍ନୋତ୍ତର', quiz:'ପ୍ରଶ୍ନମାଳା', notes:'ମୋ ସାରାଂଶ'};
+  const tabs = {readbook:'ପୁସ୍ତକ ପଢ଼ନ୍ତୁ', summary:'ସାରାଂଶ', questions:'ପ୍ରଶ୍ନୋତ୍ତର', quiz:'ପ୍ରଶ୍ନମାଳା', notes:'ମୋ ସାରାଂଶ'};
+  const isChapterOneReadBook = () => book().id==='bhagavata-vahini' && current().id==='chapter-01';
+  const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isChapterOneReadBook());
   const attempts = new Map(), notes = new Map();
   let index = 0, tab = 'summary';
   const current = () => chapters[index];
@@ -40,7 +42,7 @@
   const source = t => `<a href="${pdfLink(t)}" target="_blank" rel="noopener noreferrer">ମୂଳ ପାଠ: PDF ପୃଷ୍ଠା ${num(t.pdfStartPage)}–${num(t.pdfEndPage)} ↗</a>`;
   const focusActivity = () => { $('activity').focus({preventScroll:true}); $('activity').scrollIntoView({block:'start'}); };
   function go(i, nextTab = 'summary') {
-    if (!chapters[i] || !Object.hasOwn(tabs, nextTab)) return;
+    if (!chapters[i] || !Object.hasOwn(tabs, nextTab) || (nextTab==='readbook'&&!isChapterOneReadBook())) return;
     index = i; tab = nextTab;
     const hash = `#${book().id}/${current().id}/${tab}`;
     history.replaceState(null, '', hash);
@@ -56,7 +58,7 @@
     const bi = books.findIndex(b => b.id === bookId);
     bookIndex = bi < 0 ? 0 : bi; chapters = book().chapters;
     const i = chapters.findIndex(t => t.id === chapter);
-    go(i < 0 ? 0 : i, Object.hasOwn(tabs, activity) ? activity : 'summary');
+    go(i < 0 ? 0 : i, activity==='readbook'&&!(book().id==='bhagavata-vahini'&&chapters[i]?.id==='chapter-01')?'summary':Object.hasOwn(tabs, activity) ? activity : 'summary');
   }
   function render() {
     const t = current();
@@ -73,7 +75,7 @@
     $('chapter-list').innerHTML = chapters.map((c,i) => `<button class="book-item ${i===index?'active':''}" data-chapter="${i}" ${i===index?'aria-current="true"':''}><span class="book-number">${num(i+1)}</span><span class="book-name">${esc(c.title)}</span></button>`).join('');
     $('chapter-select').innerHTML = chapters.map((c,i) => `<option value="${i}" ${i===index?'selected':''}>${num(i+1)} · ${esc(c.title)}</option>`).join('');
     $('topic-position').textContent = `${unit()} ${num(index+1)} / ${num(chapters.length)}`;
-    $('study-tabs').innerHTML = Object.entries(tabs).map(([id,label]) => `<button id="tab-${id}" class="tab" role="tab" aria-controls="activity" aria-selected="${tab===id}" tabindex="${tab===id?0:-1}" data-tab="${id}">${label}</button>`).join('');
+    $('study-tabs').innerHTML = tabEntries().map(([id,label]) => `<button id="tab-${id}" class="tab" role="tab" aria-controls="activity" aria-selected="${tab===id}" tabindex="${tab===id?0:-1}" data-tab="${id}">${label}</button>`).join('');
     $('activity').setAttribute('aria-labelledby',`tab-${tab}`);
     $('previous-topic').disabled = index === 0;
     $('next-topic').disabled = index === chapters.length-1;
@@ -81,7 +83,10 @@
   }
   function renderActivity() {
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
-    if (tab === 'summary') {
+    if (tab === 'readbook' && isChapterOneReadBook()) {
+      const paragraphs=String(window.VAHINI_READ_BOOK_OR||'').split(/\n\s*\n/).filter(Boolean);
+      $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="action-row"><button type="button" id="toggle-original-audio" class="primary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="original-telugu-audio" controls preload="none" hidden aria-label="ଭାଗବତ ବାହିନୀ ପ୍ରଥମ ଅଧ୍ୟାୟର ମୂଳ ତେଲୁଗୁ ପୁସ୍ତକ"><source src="assets/bhagavatha-vahini-chapter-01-telugu.mp3" type="audio/mpeg">ଆପଣଙ୍କ ବ୍ରାଉଜର ଅଡିଓ ଚଲାଇବାକୁ ସମର୍ଥନ କରେ ନାହିଁ।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+    } else if (tab === 'summary') {
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">ପ୍ରଶ୍ନୋତ୍ତର ପଢ଼ନ୍ତୁ</button><button class="secondary-button" data-tab="quiz">ପ୍ରଶ୍ନମାଳା ଚେଷ୍ଟା କରନ୍ତୁ</button></div><p class="study-note">ପ୍ରଦତ୍ତ ପୁସ୍ତକ ଉପରେ ଆଧାରିତ ଅଧ୍ୟୟନ ସାରାଂଶର ଓଡ଼ିଆ ରୂପାନ୍ତର।</p></div><aside class="source-card"><p class="eyebrow">ମୂଳ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ</p><h4>${unit()} ${num(index+1)} · ${esc(t.title)}</h4><p>ସମ୍ପୂର୍ଣ୍ଣ ଶିକ୍ଷା ଓ ପ୍ରସଙ୍ଗ ପାଇଁ ପ୍ରଦତ୍ତ ଇଂରାଜୀ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ।</p>${source(t)}</aside></div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'or');
     } else if (tab === 'questions') {
@@ -98,7 +103,8 @@
   }
   document.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b || b.disabled) return;
-    if (b.dataset.chapter !== undefined) {go(Number(b.dataset.chapter));focusActivity();}
+    if (b.id==='toggle-original-audio') {const audio=$('original-telugu-audio'), opening=audio.hidden; audio.hidden=!opening; b.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus();}
+    else if (b.dataset.chapter !== undefined) {go(Number(b.dataset.chapter));focusActivity();}
     else if (b.dataset.tab) {go(index,b.dataset.tab);$('tab-'+tab).focus({preventScroll:true});}
     else if (b.id === 'previous-topic') {go(index-1);focusActivity();}
     else if (b.id === 'next-topic') {go(index+1);focusActivity();}
@@ -130,7 +136,7 @@
   });
   $('study-tabs').addEventListener('keydown', e => {
     if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
-    e.preventDefault(); const keys=Object.keys(tabs), i=keys.indexOf(tab);
+    e.preventDefault(); const keys=tabEntries().map(([id])=>id), i=keys.indexOf(tab);
     go(index,keys[e.key==='Home'?0:e.key==='End'?keys.length-1:(i+(e.key==='ArrowRight'?1:-1)+keys.length)%keys.length]);
     $('tab-'+tab).focus();
   });
