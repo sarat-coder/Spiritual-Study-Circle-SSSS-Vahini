@@ -29,9 +29,9 @@
   let bookIndex = 0, chapters = books[0]?.chapters || [];
   const book = () => books[bookIndex];
   const tabs = {readbook:'पुस्तक पढ़ें', summary:'सारांश', questions:'प्रश्नोत्तर', quiz:'प्रश्नमाला'};
-  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05'].includes(chapterId);
+  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06'].includes(chapterId);
   const defaultTab = i => isBhagavataReadBook(book().id,chapters[i]?.id) ? 'readbook' : 'summary';
-  const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_HI_CH02 : current().id==='chapter-04' ? window.VAHINI_READ_BOOK_HI_CH04 : current().id==='chapter-05' ? window.VAHINI_READ_BOOK_HI_CH05 : window.VAHINI_READ_BOOK_HI;
+  const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_HI_CH02 : current().id==='chapter-04' ? window.VAHINI_READ_BOOK_HI_CH04 : current().id==='chapter-05' ? window.VAHINI_READ_BOOK_HI_CH05 : current().id==='chapter-06' ? window.VAHINI_READ_BOOK_HI_CH06 : window.VAHINI_READ_BOOK_HI;
   const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   const attempts = new Map();
   let index = 0, tab = 'summary';
@@ -82,8 +82,11 @@
   function renderActivity() {
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
     if (tab === 'readbook' && isBhagavataReadBook()) {
-      const chapter=current().id==='chapter-05'?'05':current().id==='chapter-04'?'04':current().id==='chapter-03'?'03':current().id==='chapter-02'?'02':'01';
-      if(chapter==='05') {
+      const chapter=current().id==='chapter-06'?'06':current().id==='chapter-05'?'05':current().id==='chapter-04'?'04':current().id==='chapter-03'?'03':current().id==='chapter-02'?'02':'01';
+      if(chapter==='06') {
+        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH06||'').split(/\n\s*\n/).filter(Boolean);
+        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+      } else if(chapter==='05') {
         const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH05||'').split(/\n\s*\n/).filter(Boolean);
         $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
       } else if(chapter==='04') {
