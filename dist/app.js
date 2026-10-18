@@ -102,12 +102,10 @@
       const chapter=currentTopic().id==='chapter-03'?'03':currentTopic().id==='chapter-02'?'02':'01';
       if(chapter==='03') {
         const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH03||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="action-row"><button type="button" class="primary-button" data-audio-target="chapter03-telugu-audio" aria-expanded="false" aria-controls="chapter03-telugu-audio">Listen the Original Telugu Book</button></div><audio id="chapter03-telugu-audio" controls preload="none" hidden aria-label="Original Telugu book, Bhagavata Vahini Chapter 3"><source src="assets/bhagavatha-vahini-chapter-03-telugu.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
+        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
       } else {
         const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
-        const englishAudio=chapter==='02'?`<button type="button" class="primary-button" data-speech-lang="en-US" aria-pressed="false">Listen to the English Translation</button>`:`<button type="button" data-audio-target="english-audio" class="primary-button" aria-expanded="false" aria-controls="english-audio">Listen to the English Translation</button>`;
-        const englishPlayer=chapter==='02'?'':`<audio id="english-audio" controls preload="none" hidden aria-label="English narration of Bhagavata Vahini Chapter 1"><source src="assets/bhagavatha-vahini-chapter-01-english.wav" type="audio/wav">Your browser does not support audio playback.</audio>`;
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="action-row">${englishAudio}<button type="button" data-audio-target="original-telugu-audio" class="secondary-button" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div>${englishPlayer}<audio id="original-telugu-audio" controls preload="none" hidden aria-label="Original Telugu book, Bhagavata Vahini Chapter ${Number(chapter)}"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">Your browser does not support audio playback.</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
+        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
       }
     } else if(activeTab==='summary') {
       $('activity').innerHTML=`${title}<div class="summary-grid"><div>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">Explore the questions</button><button class="secondary-button" data-tab="quiz">Try the quiz</button></div><p class="study-note">${t.pdfStartPage?`A ${currentBook().unitLabel==='section'?'section':'chapter'} summary based only on the supplied ${escape(currentBook().title)} ${t.part?`Part ${t.part} `:''}PDF, written in our own words.`:'A brief study summary based on the linked Vahini text.'}</p></div>${referenceCard(t)}</div>`;
@@ -132,9 +130,7 @@
   document.addEventListener('click',event=>{
     const button=event.target.closest('button');
     if(!button || button.disabled) return;
-    if(button.dataset.speechLang) { const s=window.speechSynthesis; if(!s) { announce('Speech playback is unavailable in this browser.'); return; } if(s.speaking) { s.cancel(); button.setAttribute('aria-pressed','false'); button.textContent='Listen to the English Translation'; return; } const chunks=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean); for(const chunk of chunks) { const utterance=new SpeechSynthesisUtterance(chunk); utterance.lang=button.dataset.speechLang; if(chunk===chunks[chunks.length-1]) utterance.onend=()=>button.setAttribute('aria-pressed','false'); s.speak(utterance); } button.setAttribute('aria-pressed','true'); button.textContent='Stop English narration'; return; }
-    if(button.dataset.audioTarget) { const audio=$(button.dataset.audioTarget); const opening=audio.hidden; audio.hidden=!opening; button.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus(); }
-    else if(button.dataset.book!==undefined) setStudy(Number(button.dataset.book),0,'summary',true);
+    if(button.dataset.book!==undefined) setStudy(Number(button.dataset.book),0,'summary',true);
     else if(button.dataset.topic!==undefined) setStudy(bookIndex,Number(button.dataset.topic),'summary');
     else if(button.dataset.tab) {setStudy(bookIndex,topicIndex,button.dataset.tab);$('tab-'+activeTab).focus({preventScroll:true});}
     else if(button.id==='previous-topic') {setStudy(bookIndex,topicIndex-1);focusActivity();}

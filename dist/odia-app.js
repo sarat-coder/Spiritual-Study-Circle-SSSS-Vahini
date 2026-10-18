@@ -88,10 +88,10 @@
       const chapter=current().id==='chapter-03'?'03':current().id==='chapter-02'?'02':'01';
       if(chapter==='03') {
         const paragraphs=String(window.VAHINI_READ_BOOK_OR_CH03||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="action-row"><button type="button" class="primary-button" data-audio-target="chapter03-telugu-audio" aria-expanded="false" aria-controls="chapter03-telugu-audio">Listen the Original Telugu Book</button></div><audio id="chapter03-telugu-audio" controls preload="none" hidden aria-label="ଭାଗବତ ବାହିନୀ ଅଧ୍ୟାୟ ୩ର ମୂଳ ତେଲୁଗୁ ପୁସ୍ତକ"><source src="assets/bhagavatha-vahini-chapter-03-telugu.mp3" type="audio/mpeg">ଆପଣଙ୍କ ବ୍ରାଉଜର ଅଡ଼ିଓ ଚଲାଇବାକୁ ସମର୍ଥନ କରେ ନାହିଁ।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+        $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
       } else {
         const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="action-row"><button type="button" class="primary-button" data-audio-target="original-telugu-audio" aria-expanded="false" aria-controls="original-telugu-audio">Listen the Original Telugu Book</button></div><audio id="original-telugu-audio" controls preload="none" hidden aria-label="ଭାଗବତ ବାହିନୀ ଅଧ୍ୟାୟ ${Number(chapter)}ର ମୂଳ ତେଲୁଗୁ ପୁସ୍ତକ"><source src="assets/bhagavatha-vahini-chapter-${chapter}-telugu.mp3" type="audio/mpeg">ଆପଣଙ୍କ ବ୍ରାଉଜର ଅଡ଼ିଓ ଚଲାଇବାକୁ ସମର୍ଥନ କରେ ନାହିଁ।</audio><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+        $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
       }
     } else if (tab === 'summary') {
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">ପ୍ରଶ୍ନୋତ୍ତର ପଢ଼ନ୍ତୁ</button><button class="secondary-button" data-tab="quiz">ପ୍ରଶ୍ନମାଳା ଚେଷ୍ଟା କରନ୍ତୁ</button></div><p class="study-note">ପ୍ରଦତ୍ତ ପୁସ୍ତକ ଉପରେ ଆଧାରିତ ଅଧ୍ୟୟନ ସାରାଂଶର ଓଡ଼ିଆ ରୂପାନ୍ତର।</p></div><aside class="source-card"><p class="eyebrow">ମୂଳ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ</p><h4>${unit()} ${num(index+1)} · ${esc(t.title)}</h4><p>ସମ୍ପୂର୍ଣ୍ଣ ଶିକ୍ଷା ଓ ପ୍ରସଙ୍ଗ ପାଇଁ ପ୍ରଦତ୍ତ ଇଂରାଜୀ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ।</p>${source(t)}</aside></div>`;
@@ -110,8 +110,7 @@
   }
   document.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b || b.disabled) return;
-    if (b.dataset.audioTarget) {const audio=$(b.dataset.audioTarget), opening=audio.hidden; audio.hidden=!opening; b.setAttribute('aria-expanded',String(opening)); if(opening) audio.focus();}
-    else if (b.dataset.chapter !== undefined) {go(Number(b.dataset.chapter));focusActivity();}
+    if (b.dataset.chapter !== undefined) {go(Number(b.dataset.chapter));focusActivity();}
     else if (b.dataset.tab) {go(index,b.dataset.tab);$('tab-'+tab).focus({preventScroll:true});}
     else if (b.id === 'previous-topic') {go(index-1);focusActivity();}
     else if (b.id === 'next-topic') {go(index+1);focusActivity();}
