@@ -30,9 +30,9 @@
   const book = () => books[bookIndex];
   const unit = () => book().unitLabel === 'section' ? 'ଅଂଶ' : 'ଅଧ୍ୟାୟ';
   const tabs = {readbook:'ପୁସ୍ତକ ପଢ଼ନ୍ତୁ', summary:'ସାରାଂଶ', questions:'ପ୍ରଶ୍ନୋତ୍ତର', quiz:'ପ୍ରଶ୍ନମାଳା'};
-  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10'].includes(chapterId);
+  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11'].includes(chapterId);
   const defaultTab = i => isBhagavataReadBook(book().id,chapters[i]?.id) ? 'readbook' : 'summary';
-  const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_OR_CH02 : current().id==='chapter-04' ? window.VAHINI_READ_BOOK_OR_CH04 : current().id==='chapter-05' ? window.VAHINI_READ_BOOK_OR_CH05 : current().id==='chapter-06' ? window.VAHINI_READ_BOOK_OR_CH06 : current().id==='chapter-07' ? window.VAHINI_READ_BOOK_OR_CH07 : current().id==='chapter-08' ? window.VAHINI_READ_BOOK_OR_CH08 : current().id==='chapter-09' ? window.VAHINI_READ_BOOK_OR_CH09 : current().id==='chapter-10' ? window.VAHINI_READ_BOOK_OR_CH10 : window.VAHINI_READ_BOOK_OR;
+  const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_OR_CH02 : current().id==='chapter-04' ? window.VAHINI_READ_BOOK_OR_CH04 : current().id==='chapter-05' ? window.VAHINI_READ_BOOK_OR_CH05 : current().id==='chapter-06' ? window.VAHINI_READ_BOOK_OR_CH06 : current().id==='chapter-07' ? window.VAHINI_READ_BOOK_OR_CH07 : current().id==='chapter-08' ? window.VAHINI_READ_BOOK_OR_CH08 : current().id==='chapter-09' ? window.VAHINI_READ_BOOK_OR_CH09 : current().id==='chapter-10' ? window.VAHINI_READ_BOOK_OR_CH10 : current().id==='chapter-11' ? window.VAHINI_READ_BOOK_OR_CH11 : window.VAHINI_READ_BOOK_OR;
   const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   const attempts = new Map();
   let index = 0, tab = 'summary';
@@ -87,8 +87,11 @@
   function renderActivity() {
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
     if (tab === 'readbook' && isBhagavataReadBook()) {
-      const chapter=current().id==='chapter-10'?'10':current().id==='chapter-09'?'09':current().id==='chapter-08'?'08':current().id==='chapter-07'?'07':current().id==='chapter-06'?'06':current().id==='chapter-05'?'05':current().id==='chapter-04'?'04':current().id==='chapter-03'?'03':current().id==='chapter-02'?'02':'01';
-      if(chapter==='10') {
+      const chapter=current().id==='chapter-11'?'11':current().id==='chapter-10'?'10':current().id==='chapter-09'?'09':current().id==='chapter-08'?'08':current().id==='chapter-07'?'07':current().id==='chapter-06'?'06':current().id==='chapter-05'?'05':current().id==='chapter-04'?'04':current().id==='chapter-03'?'03':current().id==='chapter-02'?'02':'01';
+      if(chapter==='11') {
+        const paragraphs=String(window.VAHINI_READ_BOOK_OR_CH11||'').split(/\n\s*\n/).filter(Boolean);
+        $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
+      } else if(chapter==='10') {
         const paragraphs=String(window.VAHINI_READ_BOOK_OR_CH10||'').split(/\n\s*\n/).filter(Boolean);
         $('activity').innerHTML = `${heading}<p class="qa-intro">ସମ୍ପୂର୍ଣ୍ଣ ଅଧ୍ୟାୟ · ଓଡ଼ିଆ ଅନୁବାଦ</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
       } else if(chapter==='09') {
