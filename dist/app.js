@@ -9,9 +9,9 @@
     catch { return 'https://www.vahini.org/downloads.html'; }
   };
   const activityNames = {readbook:'Read the book',summary:'Summary',questions:'Questions & answers',quiz:'Quiz'};
-  const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11'].includes(topicId);
+  const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11','chapter-12'].includes(topicId);
   const defaultTab = (bi,ti) => isBhagavataReadBook(books[bi]?.id,books[bi]?.topics[ti]?.id) ? 'readbook' : 'summary';
-  const readBookText = () => currentTopic().id==='chapter-02' ? window.VAHINI_READ_BOOK_EN_CH02 : currentTopic().id==='chapter-04' ? window.VAHINI_READ_BOOK_EN_CH04 : currentTopic().id==='chapter-05' ? window.VAHINI_READ_BOOK_EN_CH05 : currentTopic().id==='chapter-06' ? window.VAHINI_READ_BOOK_EN_CH06 : currentTopic().id==='chapter-07' ? window.VAHINI_READ_BOOK_EN_CH07 : currentTopic().id==='chapter-08' ? window.VAHINI_READ_BOOK_EN_CH08 : currentTopic().id==='chapter-09' ? window.VAHINI_READ_BOOK_EN_CH09 : currentTopic().id==='chapter-10' ? window.VAHINI_READ_BOOK_EN_CH10 : currentTopic().id==='chapter-11' ? window.VAHINI_READ_BOOK_EN_CH11 : window.VAHINI_READ_BOOK_EN;
+  const readBookText = () => currentTopic().id==='chapter-02' ? window.VAHINI_READ_BOOK_EN_CH02 : currentTopic().id==='chapter-04' ? window.VAHINI_READ_BOOK_EN_CH04 : currentTopic().id==='chapter-05' ? window.VAHINI_READ_BOOK_EN_CH05 : currentTopic().id==='chapter-06' ? window.VAHINI_READ_BOOK_EN_CH06 : currentTopic().id==='chapter-07' ? window.VAHINI_READ_BOOK_EN_CH07 : currentTopic().id==='chapter-08' ? window.VAHINI_READ_BOOK_EN_CH08 : currentTopic().id==='chapter-09' ? window.VAHINI_READ_BOOK_EN_CH09 : currentTopic().id==='chapter-10' ? window.VAHINI_READ_BOOK_EN_CH10 : currentTopic().id==='chapter-11' ? window.VAHINI_READ_BOOK_EN_CH11 : currentTopic().id==='chapter-12' ? window.VAHINI_READ_BOOK_EN_CH12 : window.VAHINI_READ_BOOK_EN;
   const tabEntries = () => Object.entries(activityNames).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   function artwork(bookId) {
     if(bookId==='geetha-vahini') return '<figure class="book-art"><img src="assets/baba-with-krishna.jpg" width="880" height="590" alt="Bhagawan Sri Sathya Sai Baba seated beside a Sri Krishna idol"><figcaption><a href="https://archive.sssmediacentre.org/journals/vol_12/01AUG14/The-Mystical-Sport-of-Sai-Krishna.htm" target="_blank" rel="noopener noreferrer">Image: Sri Sathya Sai Media Centre ↗</a></figcaption></figure>';
@@ -87,8 +87,11 @@
   function renderActivity() {
     const t=currentTopic(), title=`<h3 class="activity-title">${escape(t.title)}</h3>`;
     if(activeTab==='readbook' && isBhagavataReadBook()) {
-      const chapter=currentTopic().id==='chapter-11'?'11':currentTopic().id==='chapter-10'?'10':currentTopic().id==='chapter-09'?'09':currentTopic().id==='chapter-08'?'08':currentTopic().id==='chapter-07'?'07':currentTopic().id==='chapter-06'?'06':currentTopic().id==='chapter-05'?'05':currentTopic().id==='chapter-04'?'04':currentTopic().id==='chapter-03'?'03':currentTopic().id==='chapter-02'?'02':'01';
-      if(chapter==='11') {
+      const chapter=currentTopic().id==='chapter-12'?'12':currentTopic().id==='chapter-11'?'11':currentTopic().id==='chapter-10'?'10':currentTopic().id==='chapter-09'?'09':currentTopic().id==='chapter-08'?'08':currentTopic().id==='chapter-07'?'07':currentTopic().id==='chapter-06'?'06':currentTopic().id==='chapter-05'?'05':currentTopic().id==='chapter-04'?'04':currentTopic().id==='chapter-03'?'03':currentTopic().id==='chapter-02'?'02':'01';
+      if(chapter==='12') {
+        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH12||'').split(/\n\s*\n/).filter(Boolean);
+        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
+      } else if(chapter==='11') {
         const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH11||'').split(/\n\s*\n/).filter(Boolean);
         $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
       } else if(chapter==='10') {
