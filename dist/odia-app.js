@@ -29,20 +29,20 @@
   let bookIndex = 0, chapters = books[0]?.chapters || [];
   const book = () => books[bookIndex];
   const unit = () => book().unitLabel === 'section' ? 'ଅଂଶ' : 'ଅଧ୍ୟାୟ';
-  const tabs = {readbook:'ପୁସ୍ତକ ପଢ଼ନ୍ତୁ', summary:'ସାରାଂଶ', questions:'ପ୍ରଶ୍ନୋତ୍ତର', quiz:'ପ୍ରଶ୍ନମାଳା', notes:'ମୋ ସାରାଂଶ'};
+  const tabs = {readbook:'ପୁସ୍ତକ ପଢ଼ନ୍ତୁ', summary:'ସାରାଂଶ', questions:'ପ୍ରଶ୍ନୋତ୍ତର', quiz:'ପ୍ରଶ୍ନମାଳା'};
   const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03'].includes(chapterId);
+  const defaultTab = i => isBhagavataReadBook(book().id,chapters[i]?.id) ? 'readbook' : 'summary';
   const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_OR_CH02 : window.VAHINI_READ_BOOK_OR;
   const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
-  const attempts = new Map(), notes = new Map();
+  const attempts = new Map();
   let index = 0, tab = 'summary';
   const current = () => chapters[index];
-  const noteKey = () => `vahini-note:or:${book().id}/${current().id}`;
   const attemptKey = () => `${book().id}/${current().id}`;
   const attempt = () => { if (!attempts.has(attemptKey())) attempts.set(attemptKey(), {answers:[], checked:false}); return attempts.get(attemptKey()); };
   const pdfLink = t => `${(t.sourceUrl || book().sourceUrl).split('#')[0]}#page=${t.pdfStartPage}`;
   const source = t => `<a href="${pdfLink(t)}" target="_blank" rel="noopener noreferrer">ମୂଳ ପାଠ: PDF ପୃଷ୍ଠା ${num(t.pdfStartPage)}–${num(t.pdfEndPage)} ↗</a>`;
   const focusActivity = () => { $('activity').focus({preventScroll:true}); $('activity').scrollIntoView({block:'start'}); };
-  function go(i, nextTab = 'summary') {
+  function go(i, nextTab = defaultTab(i)) {
     if (!chapters[i] || !Object.hasOwn(tabs, nextTab) || (nextTab==='readbook'&&!isBhagavataReadBook('bhagavata-vahini',chapters[i].id))) return;
     index = i; tab = nextTab;
     const hash = `#${book().id}/${current().id}/${tab}`;
@@ -59,7 +59,9 @@
     const bi = books.findIndex(b => b.id === bookId);
     bookIndex = bi < 0 ? 0 : bi; chapters = book().chapters;
     const i = chapters.findIndex(t => t.id === chapter);
-    go(i < 0 ? 0 : i, activity==='readbook'&&!isBhagavataReadBook(book().id,chapters[i]?.id)?'summary':Object.hasOwn(tabs, activity) ? activity : 'summary');
+    const chapterIndex=i<0?0:i;
+    const requestedTab=activity==='summary'||!Object.hasOwn(tabs,activity)?defaultTab(chapterIndex):activity;
+    go(chapterIndex,requestedTab==='readbook'&&!isBhagavataReadBook(book().id,chapters[chapterIndex]?.id)?'summary':requestedTab);
   }
   function render() {
     const t = current();
@@ -97,15 +99,10 @@
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">ପ୍ରଶ୍ନୋତ୍ତର ପଢ଼ନ୍ତୁ</button><button class="secondary-button" data-tab="quiz">ପ୍ରଶ୍ନମାଳା ଚେଷ୍ଟା କରନ୍ତୁ</button></div><p class="study-note">ପ୍ରଦତ୍ତ ପୁସ୍ତକ ଉପରେ ଆଧାରିତ ଅଧ୍ୟୟନ ସାରାଂଶର ଓଡ଼ିଆ ରୂପାନ୍ତର।</p></div><aside class="source-card"><p class="eyebrow">ମୂଳ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ</p><h4>${unit()} ${num(index+1)} · ${esc(t.title)}</h4><p>ସମ୍ପୂର୍ଣ୍ଣ ଶିକ୍ଷା ଓ ପ୍ରସଙ୍ଗ ପାଇଁ ପ୍ରଦତ୍ତ ଇଂରାଜୀ ପୁସ୍ତକ ପଢ଼ନ୍ତୁ।</p>${source(t)}</aside></div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'or');
     } else if (tab === 'questions') {
-      $('activity').innerHTML = `${heading}<p class="qa-intro">ପ୍ରତି ପ୍ରଶ୍ନ ଉପରେ ଚିନ୍ତନ କରନ୍ତୁ, ତାପରେ ଉତ୍ତର ଖୋଲନ୍ତୁ।</p>${t.quiz.map(q=>`<details><summary>${esc(q.q)}</summary><p>${esc(q.options[q.correct])}। ${esc(q.explanation)}</p></details>`).join('')}<p class="study-note">${source(t)}</p><div class="action-row"><button class="primary-button" data-tab="quiz">ନିଜ ବୁଝାମଣା ପରଖନ୍ତୁ</button><button class="secondary-button" data-tab="notes">ମୋ ସାରାଂଶ ଲେଖିବି</button></div>`;
+      $('activity').innerHTML = `${heading}<p class="qa-intro">ପ୍ରତି ପ୍ରଶ୍ନ ଉପରେ ଚିନ୍ତନ କରନ୍ତୁ, ତାପରେ ଉତ୍ତର ଖୋଲନ୍ତୁ।</p>${t.quiz.map(q=>`<details><summary>${esc(q.q)}</summary><p>${esc(q.options[q.correct])}। ${esc(q.explanation)}</p></details>`).join('')}<p class="study-note">${source(t)}</p><div class="action-row"><button class="primary-button" data-tab="quiz">ନିଜ ବୁଝାମଣା ପରଖନ୍ତୁ</button></div>`;
     } else if (tab === 'quiz') {
       const a = attempt(), answered = a.answers.filter(Number.isInteger).length, score = t.quiz.filter((q,i)=>q.correct===a.answers[i]).length;
-      $('activity').innerHTML = `${heading}<p class="quiz-intro">ଏହି ${unit()}ର ପାଠ ଉପରେ ଆଧାରିତ ପାଞ୍ଚଟି ପ୍ରଶ୍ନ। ପ୍ରତି ପ୍ରଶ୍ନ ପାଇଁ ଗୋଟିଏ ଉତ୍ତର ବାଛନ୍ତୁ।</p>${a.checked?`<div class="quiz-result" role="status"><strong>୫ଟିରୁ ${num(score)}ଟି ସଠିକ୍</strong>${score===5?'ଭଲ କରିଛନ୍ତି। ଶିଖିଥିବା ବିଷୟ ଉପରେ ଚିନ୍ତନ କରନ୍ତୁ।':'ବ୍ୟାଖ୍ୟା ଓ ମୂଳ ପାଠ ପଢ଼ି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।'}</div>`:''}<p id="answer-progress" class="chapter-guide">୫ଟିରୁ ${num(answered)}ଟିର ଉତ୍ତର ଦିଆଯାଇଛି</p><progress id="quiz-progress" max="5" value="${answered}" aria-label="ଉତ୍ତର ଦିଆଯାଇଥିବା ପ୍ରଶ୍ନ"></progress><form id="quiz-form">${t.quiz.map((q,i)=>`<fieldset class="quiz-question"><legend><span class="qnumber">${num(i+1)}</span>${esc(q.q)}</legend><div class="options">${q.options.map((o,j)=>`<label class="option ${a.checked&&j===q.correct?'correct':''} ${a.checked&&a.answers[i]===j&&j!==q.correct?'wrong':''}"><input type="radio" name="question-${i}" value="${j}" data-question="${i}" ${a.answers[i]===j?'checked':''} ${a.checked?'disabled':''}><span>${esc(o)}${a.checked&&j===q.correct?' ✓':''}</span></label>`).join('')}</div>${a.checked?`<p class="feedback ${a.answers[i]===q.correct?'':'incorrect'}"><strong>${a.answers[i]===q.correct?'ସଠିକ୍।':'ସଠିକ୍ ଉତ୍ତର: '+esc(q.options[q.correct])+'।'}</strong> ${esc(q.explanation)} ${source(t)}</p>`:''}</fieldset>`).join('')}<div class="action-row">${a.checked?'<button type="button" id="retry-quiz" class="secondary-button">ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</button><button type="button" data-tab="notes" class="primary-button">ମୋ ସାରାଂଶ ଲେଖିବି</button>':'<button type="submit" class="primary-button">ପାଞ୍ଚଟି ଉତ୍ତର ଯାଞ୍ଚ କରନ୍ତୁ</button>'}</div><p id="quiz-error" class="form-error" role="alert"></p></form><p class="study-note">ଆପଣଙ୍କ ଉତ୍ତର ଓ ଫଳାଫଳ କେବଳ ଏହି ଥରର ଅଧ୍ୟୟନ ସମୟରେ ରହିବ। ${source(t)}</p>`;
-    } else {
-      $('activity').innerHTML = `${heading}<p class="notes-intro">ଆପଣ କଣ ବୁଝିଲେ? ମୁଖ୍ୟ ଭାବଟି ନିଜ ଭାଷାରେ ଲେଖନ୍ତୁ ଏବଂ ତାହାକୁ ପାଳନ କରିବାର ଗୋଟିଏ ଉପାୟ ଲେଖନ୍ତୁ।</p><label class="note-label" for="personal-note">ଏହି ${unit()} ଉପରେ ମୋ ଚିନ୍ତନ</label><textarea id="personal-note" maxlength="12000" placeholder="ଏହି ${unit()}ରୁ ମୁଁ ବୁଝିଥିବା ମୁଖ୍ୟ ଭାବଟି ହେଉଛି…"></textarea><p id="note-status" class="note-status" role="status">ଆପଣଙ୍କ ଲେଖା କେବଳ ଏହି ବ୍ରାଉଜରରେ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ସଞ୍ଚିତ ହେବ।</p><p class="study-note">ଏଗୁଡ଼ିକ ଆପଣଙ୍କ ବ୍ୟକ୍ତିଗତ ଟିପ୍ପଣୀ। ଏହା ଇଂରାଜୀ ଟିପ୍ପଣୀ ଓ ଅଧ୍ୟୟନ ସାମଗ୍ରୀଠାରୁ ଅଲଗା ରହିବ।</p>`;
-      let value = notes.get(noteKey()) || '';
-      if (!notes.has(noteKey())) { try { value = localStorage.getItem(noteKey()) || ''; } catch {} }
-      $('personal-note').value = value;
+      $('activity').innerHTML = `${heading}<p class="quiz-intro">ଏହି ${unit()}ର ପାଠ ଉପରେ ଆଧାରିତ ପାଞ୍ଚଟି ପ୍ରଶ୍ନ। ପ୍ରତି ପ୍ରଶ୍ନ ପାଇଁ ଗୋଟିଏ ଉତ୍ତର ବାଛନ୍ତୁ।</p>${a.checked?`<div class="quiz-result" role="status"><strong>୫ଟିରୁ ${num(score)}ଟି ସଠିକ୍</strong>${score===5?'ଭଲ କରିଛନ୍ତି। ଶିଖିଥିବା ବିଷୟ ଉପରେ ଚିନ୍ତନ କରନ୍ତୁ।':'ବ୍ୟାଖ୍ୟା ଓ ମୂଳ ପାଠ ପଢ଼ି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।'}</div>`:''}<p id="answer-progress" class="chapter-guide">୫ଟିରୁ ${num(answered)}ଟିର ଉତ୍ତର ଦିଆଯାଇଛି</p><progress id="quiz-progress" max="5" value="${answered}" aria-label="ଉତ୍ତର ଦିଆଯାଇଥିବା ପ୍ରଶ୍ନ"></progress><form id="quiz-form">${t.quiz.map((q,i)=>`<fieldset class="quiz-question"><legend><span class="qnumber">${num(i+1)}</span>${esc(q.q)}</legend><div class="options">${q.options.map((o,j)=>`<label class="option ${a.checked&&j===q.correct?'correct':''} ${a.checked&&a.answers[i]===j&&j!==q.correct?'wrong':''}"><input type="radio" name="question-${i}" value="${j}" data-question="${i}" ${a.answers[i]===j?'checked':''} ${a.checked?'disabled':''}><span>${esc(o)}${a.checked&&j===q.correct?' ✓':''}</span></label>`).join('')}</div>${a.checked?`<p class="feedback ${a.answers[i]===q.correct?'':'incorrect'}"><strong>${a.answers[i]===q.correct?'ସଠିକ୍।':'ସଠିକ୍ ଉତ୍ତର: '+esc(q.options[q.correct])+'।'}</strong> ${esc(q.explanation)} ${source(t)}</p>`:''}</fieldset>`).join('')}<div class="action-row">${a.checked?'<button type="button" id="retry-quiz" class="secondary-button">ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</button>':'<button type="submit" class="primary-button">ପାଞ୍ଚଟି ଉତ୍ତର ଯାଞ୍ଚ କରନ୍ତୁ</button>'}</div><p id="quiz-error" class="form-error" role="alert"></p></form><p class="study-note">ଆପଣଙ୍କ ଉତ୍ତର ଓ ଫଳାଫଳ କେବଳ ଏହି ଥରର ଅଧ୍ୟୟନ ସମୟରେ ରହିବ। ${source(t)}</p>`;
     }
   }
   document.addEventListener('click', e => {
@@ -133,12 +130,6 @@
       document.querySelector(`input[name="question-${missing}"]`).focus(); return;
     }
     a.checked = true; renderActivity(); focusActivity();
-  });
-  document.addEventListener('input', e => {
-    if (e.target.id !== 'personal-note') return;
-    notes.set(noteKey(),e.target.value);
-    try {localStorage.setItem(noteKey(),e.target.value);$('note-status').textContent='କେବଳ ଏହି ବ୍ରାଉଜରରେ ସଞ୍ଚିତ ହୋଇଛି। ଅନ୍ୟ କାହା ସହ ଭାଗ କରାଯାଇନାହିଁ।';}
-    catch {$('note-status').textContent='କେବଳ ଏହି ଅଧ୍ୟୟନ ସମୟ ପାଇଁ ରହିଛି। ବ୍ରାଉଜରରେ ସଞ୍ଚୟ ସମ୍ଭବ ନୁହେଁ; ବନ୍ଦ କରିବା ପୂର୍ବରୁ ଲେଖାଟି ନକଲ କରି ରଖନ୍ତୁ।';}
   });
   $('study-tabs').addEventListener('keydown', e => {
     if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;

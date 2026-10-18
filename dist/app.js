@@ -8,8 +8,9 @@
     try { const u = new URL(value); return u.protocol === 'https:' && ['vahini.org','www.vahini.org'].includes(u.hostname) ? escape(u.href) : 'https://www.vahini.org/downloads.html'; }
     catch { return 'https://www.vahini.org/downloads.html'; }
   };
-  const activityNames = {readbook:'Read the book',summary:'Summary',questions:'Questions & answers',quiz:'Quiz',notes:'My summary'};
+  const activityNames = {readbook:'Read the book',summary:'Summary',questions:'Questions & answers',quiz:'Quiz'};
   const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03'].includes(topicId);
+  const defaultTab = (bi,ti) => isBhagavataReadBook(books[bi]?.id,books[bi]?.topics[ti]?.id) ? 'readbook' : 'summary';
   const readBookText = () => currentTopic().id==='chapter-02' ? window.VAHINI_READ_BOOK_EN_CH02 : window.VAHINI_READ_BOOK_EN;
   const tabEntries = () => Object.entries(activityNames).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   function artwork(bookId) {
@@ -18,7 +19,7 @@
     return '';
   }
   let bookIndex = 0, topicIndex = 0, activeTab = 'summary';
-  const attempts = new Map(), notes = new Map();
+  const attempts = new Map();
   const currentBook = () => books[bookIndex];
   const currentTopic = () => currentBook().topics[topicIndex];
   const key = () => `${currentBook().id}/${currentTopic().id}`;
@@ -31,25 +32,11 @@
     if (!attempts.has(key())) attempts.set(key(), {answers:[],checked:false,page:0});
     return attempts.get(key());
   }
-  function loadNote() {
-    if (notes.has(key())) return notes.get(key());
-    let value = '';
-    try { value = localStorage.getItem(`vahini-note:${key()}`) || ''; } catch {}
-    notes.set(key(), value);
-    return value;
-  }
-  function saveNote(value) {
-    notes.set(key(), value);
-    let saved = true;
-    try { localStorage.setItem(`vahini-note:${key()}`, value); } catch { saved = false; }
-    if ($('note-status')) $('note-status').textContent = saved ? 'Saved on this browser only. Your summary is private to this browser and is not shared.' : 'Kept for this session. Browser storage is unavailable; copy your summary before leaving.';
-    return saved;
-  }
   function updateHash() {
     const hash = `#${currentBook().id}/${currentTopic().id}/${activeTab}`;
     if (location.hash !== hash) history.replaceState(null, '', hash);
   }
-  function setStudy(bi,ti=0,tab='summary',moveFocus=false) {
+  function setStudy(bi,ti=0,tab=defaultTab(bi,ti),moveFocus=false) {
     if (!Number.isInteger(bi) || !books[bi] || !Number.isInteger(ti) || !books[bi].topics[ti] || !activityNames[tab] || (tab==='readbook' && !isBhagavataReadBook(books[bi].id,books[bi].topics[ti].id))) throw new Error('Choose an existing book, topic and activity.');
     bookIndex=bi; topicIndex=ti; activeTab=tab;
     render(); updateHash();
@@ -61,7 +48,8 @@
     const [b,t,a] = location.hash.slice(1).split('/');
     const bi = books.findIndex(x=>x.id===b);
     const ti = bi < 0 ? -1 : books[bi].topics.findIndex(x=>x.id===t);
-    const safeTab=a==='readbook'&&!(bi>=0&&ti>=0&&isBhagavataReadBook(books[bi].id,books[bi].topics[ti].id))?'summary':activityNames[a] ? a : 'summary';
+    const requestedTab=a==='summary'||!activityNames[a]?defaultTab(bi,ti):a;
+    const safeTab=requestedTab==='readbook'&&!(bi>=0&&ti>=0&&isBhagavataReadBook(books[bi].id,books[bi].topics[ti].id))?'summary':requestedTab;
     setStudy(bi < 0 ? 0 : bi,ti < 0 ? 0 : ti,safeTab);
   }
   function render() {
@@ -111,7 +99,7 @@
       $('activity').innerHTML=`${title}<div class="summary-grid"><div>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">Explore the questions</button><button class="secondary-button" data-tab="quiz">Try the quiz</button></div><p class="study-note">${t.pdfStartPage?`A ${currentBook().unitLabel==='section'?'section':'chapter'} summary based only on the supplied ${escape(currentBook().title)} ${t.part?`Part ${t.part} `:''}PDF, written in our own words.`:'A brief study summary based on the linked Vahini text.'}</p></div>${referenceCard(t)}</div>`;
       $('activity').innerHTML += window.renderRamakathaStudy(currentBook().id,t,'en');
     } else if(activeTab==='questions') {
-      $('activity').innerHTML=`${title}<p class="qa-intro">Reflect on each question, then open the answer.</p>${t.qa.map((q,i)=>`<details><summary>${escape(q.q)}</summary><p>${escape(q.a)}</p></details>`).join('')}<p class="study-note">Study questions written from <a href="${sourceLink(t.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(t.chapter)}</a>.</p><div class="action-row"><button class="primary-button" data-tab="quiz">Test your understanding</button><button class="secondary-button" data-tab="notes">Write my summary</button></div>`;
+      $('activity').innerHTML=`${title}<p class="qa-intro">Reflect on each question, then open the answer.</p>${t.qa.map((q,i)=>`<details><summary>${escape(q.q)}</summary><p>${escape(q.a)}</p></details>`).join('')}<p class="study-note">Study questions written from <a href="${sourceLink(t.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(t.chapter)}</a>.</p><div class="action-row"><button class="primary-button" data-tab="quiz">Test your understanding</button></div>`;
     } else if(activeTab==='quiz') {
       const attempt=getAttempt();
       const score=t.quiz.filter((q,i)=>attempt.answers[i]===q.correct).length;
@@ -121,17 +109,14 @@
       $('activity').innerHTML=`${title}<p class="quiz-intro">${t.quiz.length} questions · Choose one answer for each. ${pages>1?'Your selections stay in place as you move between pages.':`All five questions are based on this ${currentBook().unitLabel==='section'?'section':'chapter'} in the supplied book.`}</p>${t.quiz.some(q=>q.type==='application')?'<p class="exercise-note">Practice scenarios are imagined situations based on this topic’s teaching; they are not events or quotations from the book.</p>':''}${attempt.checked?`<div class="quiz-result" role="status"><strong>${score} of ${t.quiz.length} correct</strong>${score===t.quiz.length?'Well done. Take a moment to reflect on what you learned.':'Review the explanations on each page, revisit the text, and try again.'}</div>`:''}<div class="quiz-toolbar"><div><strong>Questions ${start+1}–${end} of ${t.quiz.length}</strong><span id="answer-progress">${answered} of ${t.quiz.length} answered</span></div>${pages>1?`<nav class="quiz-pages" aria-label="Quiz pages">${pageButtons}</nav>`:''}</div><progress id="quiz-progress" max="${t.quiz.length}" value="${answered}" aria-label="Questions answered"></progress><form id="quiz-form">${t.quiz.slice(start,end).map((q,offset)=>{
         const i=start+offset;
         return `<fieldset class="quiz-question"><legend><span class="qnumber">${String(i+1).padStart(2,'0')}</span>${escape(q.q)}</legend><p class="question-type">${q.type==='application'?'Practice scenario':q.type==='understanding'?'Understanding the teaching':'Study check'}</p><div class="options">${q.options.map((o,j)=>`<label class="option ${attempt.checked && j===q.correct?'correct':''} ${attempt.checked && attempt.answers[i]===j && j!==q.correct?'wrong':''}"><input type="radio" name="question-${i}" value="${j}" data-question="${i}" ${attempt.answers[i]===j?'checked':''} ${attempt.checked?'disabled':''}><span>${escape(o)}${attempt.checked && j===q.correct?' ✓':''}</span></label>`).join('')}</div>${attempt.checked?`<p class="feedback ${attempt.answers[i]!==q.correct?'incorrect':''}"><strong>${attempt.answers[i]===q.correct?'Correct.':'Correct answer: '+escape(q.options[q.correct])+'.'}</strong> ${escape(q.explanation)} <a href="${sourceLink(q.sourceUrl||t.sourceUrl)}" target="_blank" rel="noopener noreferrer">Source: ${escape(q.sourceLabel||t.chapter)} ↗</a></p>`:''}</fieldset>`;
-      }).join('')}<div class="quiz-pagination" ${pages===1?'hidden':''}><button type="button" class="secondary-button" data-quiz-page="${page-1}" ${page===0?'disabled':''}>← Previous questions</button><button type="button" class="secondary-button" data-quiz-page="${page+1}" ${page===pages-1?'disabled':''}>Next questions →</button></div><div class="action-row">${attempt.checked?'<button class="secondary-button" type="button" id="retry-quiz">Try again</button><button class="primary-button" type="button" data-tab="notes">Write my summary</button>':`<button class="primary-button" type="submit">Check all ${t.quiz.length} answers</button>`}</div><p id="quiz-error" class="form-error" role="alert"></p></form><p class="study-note">Based on <a href="${sourceLink(t.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(t.chapter)}</a>. Your quiz selections and score are kept only during this visit.</p>`;
-    } else {
-      $('activity').innerHTML=`${title}<p class="notes-intro">What did you understand? Write the main idea in your own words and one way to practise it.</p><label class="note-label" for="personal-note">My reflection on this topic</label><textarea id="personal-note" maxlength="12000" placeholder="The main idea I take from this topic is…"></textarea><p id="note-status" class="note-status" aria-live="polite">Saved automatically on this browser only. No account or sharing.</p><p class="study-note">These are your personal notes. They are kept separately from the study material.</p>`;
-      $('personal-note').value=loadNote();
+      }).join('')}<div class="quiz-pagination" ${pages===1?'hidden':''}><button type="button" class="secondary-button" data-quiz-page="${page-1}" ${page===0?'disabled':''}>← Previous questions</button><button type="button" class="secondary-button" data-quiz-page="${page+1}" ${page===pages-1?'disabled':''}>Next questions →</button></div><div class="action-row">${attempt.checked?'<button class="secondary-button" type="button" id="retry-quiz">Try again</button>':`<button class="primary-button" type="submit">Check all ${t.quiz.length} answers</button>`}</div><p id="quiz-error" class="form-error" role="alert"></p></form><p class="study-note">Based on <a href="${sourceLink(t.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(t.chapter)}</a>. Your quiz selections and score are kept only during this visit.</p>`;
     }
   }
   document.addEventListener('click',event=>{
     const button=event.target.closest('button');
     if(!button || button.disabled) return;
-    if(button.dataset.book!==undefined) setStudy(Number(button.dataset.book),0,'summary',true);
-    else if(button.dataset.topic!==undefined) setStudy(bookIndex,Number(button.dataset.topic),'summary');
+    if(button.dataset.book!==undefined) { const bi=Number(button.dataset.book); setStudy(bi,0,defaultTab(bi,0),true); }
+    else if(button.dataset.topic!==undefined) { const ti=Number(button.dataset.topic); setStudy(bookIndex,ti,defaultTab(bookIndex,ti)); }
     else if(button.dataset.tab) {setStudy(bookIndex,topicIndex,button.dataset.tab);$('tab-'+activeTab).focus({preventScroll:true});}
     else if(button.id==='previous-topic') {setStudy(bookIndex,topicIndex-1);focusActivity();}
     else if(button.id==='next-topic') {setStudy(bookIndex,topicIndex+1);focusActivity();}
@@ -143,9 +128,9 @@
     }
     else if(button.id==='retry-quiz') {attempts.delete(key());renderActivity();focusActivity();announce('Quiz reset. Choose your answers.');}
   });
-  $('mobile-book').addEventListener('change',e=>setStudy(Number(e.target.value),0,'summary',true));
+  $('mobile-book').addEventListener('change',e=>{const bi=Number(e.target.value);setStudy(bi,0,defaultTab(bi,0),true);});
   document.addEventListener('change',e=>{
-    if(e.target.id==='chapter-select') {setStudy(bookIndex,Number(e.target.value),'summary');$('chapter-select').focus({preventScroll:true});}
+    if(e.target.id==='chapter-select') {const ti=Number(e.target.value);setStudy(bookIndex,ti,defaultTab(bookIndex,ti));$('chapter-select').focus({preventScroll:true});}
     if(e.target.matches('input[data-question]')) {
       getAttempt().answers[Number(e.target.dataset.question)]=Number(e.target.value);
       const answered=currentTopic().quiz.filter((q,i)=>Number.isInteger(getAttempt().answers[i])).length;
@@ -154,7 +139,6 @@
       $('quiz-error').textContent='';
     }
   });
-  document.addEventListener('input',e=>{if(e.target.id==='personal-note') saveNote(e.target.value);});
   document.addEventListener('submit',e=>{
     if(e.target.id!=='quiz-form') return;
     e.preventDefault();
@@ -183,13 +167,9 @@
     const lifecycle=new AbortController();
     const register=tool=>{try{Promise.resolve(context.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{});}catch{}};
     register({name:'list_vahini_topics',description:'Read the available Vahini books and study topics.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>books.map(b=>({id:b.id,title:b.title,topics:b.topics.map(t=>({id:t.id,title:t.title}))}))});
-    register({name:'open_vahini_topic',description:'Open a Vahini study topic and its summary, questions, quiz, or personal notes.',inputSchema:{type:'object',properties:{bookId:{type:'string'},topicId:{type:'string'},activity:{enum:Object.keys(activityNames)}},required:['bookId','topicId'],additionalProperties:false},annotations:{readOnlyHint:false},execute:input=>{
+    register({name:'open_vahini_topic',description:'Open a Vahini study topic and its reading, summary, questions, or quiz.',inputSchema:{type:'object',properties:{bookId:{type:'string'},topicId:{type:'string'},activity:{enum:Object.keys(activityNames)}},required:['bookId','topicId'],additionalProperties:false},annotations:{readOnlyHint:false},execute:input=>{
       const bi=books.findIndex(b=>b.id===input?.bookId);const ti=books[bi]?.topics.findIndex(t=>t.id===input?.topicId)??-1;
-      setStudy(bi,ti,input.activity||'summary');return {book:currentBook().title,topic:currentTopic().title,activity:activeTab};
-    }});
-    register({name:'save_personal_vahini_summary',description:'Save the user’s own summary for the currently selected topic on this browser only. Replaces that topic’s existing personal summary.',inputSchema:{type:'object',properties:{summary:{type:'string',maxLength:12000}},required:['summary'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:true},execute:input=>{
-      if(typeof input?.summary!=='string'||input.summary.length>12000)throw new Error('Provide a summary of at most 12000 characters.');
-      const persisted=saveNote(input.summary);setStudy(bookIndex,topicIndex,'notes');return {topic:currentTopic().title,savedOnBrowser:persisted,keptForSession:true};
+      setStudy(bi,ti,input.activity||defaultTab(bi,ti));return {book:currentBook().title,topic:currentTopic().title,activity:activeTab};
     }});
     window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
   }
