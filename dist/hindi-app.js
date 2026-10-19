@@ -29,9 +29,9 @@
   let bookIndex = 0, chapters = books[0]?.chapters || [];
   const book = () => books[bookIndex];
   const tabs = {readbook:'पुस्तक पढ़ें', summary:'सारांश', questions:'प्रश्नोत्तर', quiz:'प्रश्नमाला'};
-  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11','chapter-12','chapter-13','chapter-14','chapter-15','chapter-16','chapter-17','chapter-18'].includes(chapterId);
+  const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11','chapter-12','chapter-13','chapter-14','chapter-15','chapter-16','chapter-17','chapter-18','chapter-19','chapter-20'].includes(chapterId);
   const defaultTab = i => isBhagavataReadBook(book().id,chapters[i]?.id) ? 'readbook' : 'summary';
-  const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_HI_CH02 : current().id==='chapter-04' ? window.VAHINI_READ_BOOK_HI_CH04 : current().id==='chapter-05' ? window.VAHINI_READ_BOOK_HI_CH05 : current().id==='chapter-06' ? window.VAHINI_READ_BOOK_HI_CH06 : current().id==='chapter-07' ? window.VAHINI_READ_BOOK_HI_CH07 : current().id==='chapter-08' ? window.VAHINI_READ_BOOK_HI_CH08 : current().id==='chapter-09' ? window.VAHINI_READ_BOOK_HI_CH09 : current().id==='chapter-10' ? window.VAHINI_READ_BOOK_HI_CH10 : current().id==='chapter-11' ? window.VAHINI_READ_BOOK_HI_CH11 : current().id==='chapter-12' ? window.VAHINI_READ_BOOK_HI_CH12 : current().id==='chapter-13' ? window.VAHINI_READ_BOOK_HI_CH13 : current().id==='chapter-14' ? window.VAHINI_READ_BOOK_HI_CH14 : current().id==='chapter-15' ? window.VAHINI_READ_BOOK_HI_CH15 : current().id==='chapter-16' ? window.VAHINI_READ_BOOK_HI_CH16 : current().id==='chapter-17' ? window.VAHINI_READ_BOOK_HI_CH17 : current().id==='chapter-18' ? window.VAHINI_READ_BOOK_HI_CH18 : window.VAHINI_READ_BOOK_HI;
+  const readBookText = () => current().id==='chapter-02' ? window.VAHINI_READ_BOOK_HI_CH02 : current().id==='chapter-04' ? window.VAHINI_READ_BOOK_HI_CH04 : current().id==='chapter-05' ? window.VAHINI_READ_BOOK_HI_CH05 : current().id==='chapter-06' ? window.VAHINI_READ_BOOK_HI_CH06 : current().id==='chapter-07' ? window.VAHINI_READ_BOOK_HI_CH07 : current().id==='chapter-08' ? window.VAHINI_READ_BOOK_HI_CH08 : current().id==='chapter-09' ? window.VAHINI_READ_BOOK_HI_CH09 : current().id==='chapter-10' ? window.VAHINI_READ_BOOK_HI_CH10 : current().id==='chapter-11' ? window.VAHINI_READ_BOOK_HI_CH11 : current().id==='chapter-12' ? window.VAHINI_READ_BOOK_HI_CH12 : current().id==='chapter-13' ? window.VAHINI_READ_BOOK_HI_CH13 : current().id==='chapter-14' ? window.VAHINI_READ_BOOK_HI_CH14 : current().id==='chapter-15' ? window.VAHINI_READ_BOOK_HI_CH15 : current().id==='chapter-16' ? window.VAHINI_READ_BOOK_HI_CH16 : current().id==='chapter-17' ? window.VAHINI_READ_BOOK_HI_CH17 : current().id==='chapter-18' ? window.VAHINI_READ_BOOK_HI_CH18 : current().id==='chapter-19' ? window.VAHINI_READ_BOOK_HI_CH19 : current().id==='chapter-20' ? window.VAHINI_READ_BOOK_HI_CH20 : window.VAHINI_READ_BOOK_HI;
   const tabEntries = () => Object.entries(tabs).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   const attempts = new Map();
   let index = 0, tab = 'summary';
@@ -60,7 +60,7 @@
     bookIndex = bi < 0 ? 0 : bi; chapters = book().chapters;
     const i = chapters.findIndex(t => t.id === chapter);
     const chapterIndex=i<0?0:i;
-    const requestedTab=activity==='summary'||!Object.hasOwn(tabs,activity)?defaultTab(chapterIndex):activity;
+    const requestedTab=!Object.hasOwn(tabs,activity)?defaultTab(chapterIndex):activity;
     go(chapterIndex,requestedTab==='readbook'&&!isBhagavataReadBook(book().id,chapters[chapterIndex]?.id)?'summary':requestedTab);
   }
   function render() {
@@ -82,63 +82,11 @@
   function renderActivity() {
     const t = current(), heading = `<h3 class="activity-title">${esc(t.title)}</h3>`;
     if (tab === 'readbook' && isBhagavataReadBook()) {
-      const chapter=current().id==='chapter-18'?'18':current().id==='chapter-17'?'17':current().id==='chapter-16'?'16':current().id==='chapter-15'?'15':current().id==='chapter-14'?'14':current().id==='chapter-13'?'13':current().id==='chapter-12'?'12':current().id==='chapter-11'?'11':current().id==='chapter-10'?'10':current().id==='chapter-09'?'09':current().id==='chapter-08'?'08':current().id==='chapter-07'?'07':current().id==='chapter-06'?'06':current().id==='chapter-05'?'05':current().id==='chapter-04'?'04':current().id==='chapter-03'?'03':current().id==='chapter-02'?'02':'01';
-      if(chapter==='18') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH18||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='17') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH17||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='16') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH16||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='15') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH15||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='14') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH14||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='13') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH13||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='12') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH12||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='11') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH11||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='10') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH10||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='09') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH09||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='08') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH08||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='07') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH07||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='06') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH06||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='05') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH05||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='04') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH04||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='03') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_HI_CH03||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      } else {
-        const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
-      }
+      const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
+      $('activity').innerHTML = `${heading}<p class="qa-intro">पूरा अध्याय · हिंदी अनुवाद</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}</div>`;
     } else if (tab === 'summary') {
       $('activity').innerHTML = `${heading}<div class="summary-grid"><div>${t.summary.split('\n\n').map(p=>`<p class="summary-text">${esc(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">प्रश्नोत्तर पढ़ें</button><button class="secondary-button" data-tab="quiz">प्रश्नमाला हल करें</button></div><p class="study-note">प्रदत्त पुस्तक पर आधारित अध्ययन सारांश का हिंदी रूपांतरण।</p></div><aside class="source-card"><p class="eyebrow">मूल पुस्तक पढ़ें</p><h4>${esc(t.title)}</h4><p>संपूर्ण शिक्षा और संदर्भ के लिए प्रदत्त अंग्रेज़ी पुस्तक पढ़ें।</p>${source(t)}</aside></div>`;
-      $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'hi');
-    } else if (tab === 'questions') {
+      $('activity').innerHTML += window.renderRamakathaStudy(book().id,t,'hi');    } else if (tab === 'questions') {
       $('activity').innerHTML = `${heading}<p class="qa-intro">हर प्रश्न पर विचार करें, फिर उत्तर खोलें।</p>${t.quiz.map(q=>`<details><summary>${esc(q.q)}</summary><p>${esc(q.options[q.correct])}। ${esc(q.explanation)}</p></details>`).join('')}<p class="study-note">${source(t)}</p><div class="action-row"><button class="primary-button" data-tab="quiz">अपनी समझ परखें</button></div>`;
     } else if (tab === 'quiz') {
       const a = attempt(), answered = a.answers.filter(Number.isInteger).length, score = t.quiz.filter((q,i)=>q.correct===a.answers[i]).length;

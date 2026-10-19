@@ -9,9 +9,9 @@
     catch { return 'https://www.vahini.org/downloads.html'; }
   };
   const activityNames = {readbook:'Read the book',summary:'Summary',questions:'Questions & answers',quiz:'Quiz'};
-  const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11','chapter-12','chapter-13','chapter-14','chapter-15','chapter-16','chapter-17','chapter-18'].includes(topicId);
+  const isBhagavataReadBook = (bookId=currentBook().id, topicId=currentTopic().id) => bookId==='bhagavata-vahini' && ['chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11','chapter-12','chapter-13','chapter-14','chapter-15','chapter-16','chapter-17','chapter-18','chapter-19','chapter-20'].includes(topicId);
   const defaultTab = (bi,ti) => isBhagavataReadBook(books[bi]?.id,books[bi]?.topics[ti]?.id) ? 'readbook' : 'summary';
-  const readBookText = () => currentTopic().id==='chapter-02' ? window.VAHINI_READ_BOOK_EN_CH02 : currentTopic().id==='chapter-04' ? window.VAHINI_READ_BOOK_EN_CH04 : currentTopic().id==='chapter-05' ? window.VAHINI_READ_BOOK_EN_CH05 : currentTopic().id==='chapter-06' ? window.VAHINI_READ_BOOK_EN_CH06 : currentTopic().id==='chapter-07' ? window.VAHINI_READ_BOOK_EN_CH07 : currentTopic().id==='chapter-08' ? window.VAHINI_READ_BOOK_EN_CH08 : currentTopic().id==='chapter-09' ? window.VAHINI_READ_BOOK_EN_CH09 : currentTopic().id==='chapter-10' ? window.VAHINI_READ_BOOK_EN_CH10 : currentTopic().id==='chapter-11' ? window.VAHINI_READ_BOOK_EN_CH11 : currentTopic().id==='chapter-12' ? window.VAHINI_READ_BOOK_EN_CH12 : currentTopic().id==='chapter-13' ? window.VAHINI_READ_BOOK_EN_CH13 : currentTopic().id==='chapter-14' ? window.VAHINI_READ_BOOK_EN_CH14 : currentTopic().id==='chapter-15' ? window.VAHINI_READ_BOOK_EN_CH15 : currentTopic().id==='chapter-16' ? window.VAHINI_READ_BOOK_EN_CH16 : currentTopic().id==='chapter-17' ? window.VAHINI_READ_BOOK_EN_CH17 : currentTopic().id==='chapter-18' ? window.VAHINI_READ_BOOK_EN_CH18 : window.VAHINI_READ_BOOK_EN;
+  const readBookText = () => currentTopic().id==='chapter-02' ? window.VAHINI_READ_BOOK_EN_CH02 : currentTopic().id==='chapter-04' ? window.VAHINI_READ_BOOK_EN_CH04 : currentTopic().id==='chapter-05' ? window.VAHINI_READ_BOOK_EN_CH05 : currentTopic().id==='chapter-06' ? window.VAHINI_READ_BOOK_EN_CH06 : currentTopic().id==='chapter-07' ? window.VAHINI_READ_BOOK_EN_CH07 : currentTopic().id==='chapter-08' ? window.VAHINI_READ_BOOK_EN_CH08 : currentTopic().id==='chapter-09' ? window.VAHINI_READ_BOOK_EN_CH09 : currentTopic().id==='chapter-10' ? window.VAHINI_READ_BOOK_EN_CH10 : currentTopic().id==='chapter-11' ? window.VAHINI_READ_BOOK_EN_CH11 : currentTopic().id==='chapter-12' ? window.VAHINI_READ_BOOK_EN_CH12 : currentTopic().id==='chapter-13' ? window.VAHINI_READ_BOOK_EN_CH13 : currentTopic().id==='chapter-14' ? window.VAHINI_READ_BOOK_EN_CH14 : currentTopic().id==='chapter-15' ? window.VAHINI_READ_BOOK_EN_CH15 : currentTopic().id==='chapter-16' ? window.VAHINI_READ_BOOK_EN_CH16 : currentTopic().id==='chapter-17' ? window.VAHINI_READ_BOOK_EN_CH17 : currentTopic().id==='chapter-18' ? window.VAHINI_READ_BOOK_EN_CH18 : currentTopic().id==='chapter-19' ? window.VAHINI_READ_BOOK_EN_CH19 : currentTopic().id==='chapter-20' ? window.VAHINI_READ_BOOK_EN_CH20 : window.VAHINI_READ_BOOK_EN;
   const tabEntries = () => Object.entries(activityNames).filter(([id])=>id!=='readbook'||isBhagavataReadBook());
   function artwork(bookId) {
     if(bookId==='geetha-vahini') return '<figure class="book-art"><img src="assets/baba-with-krishna.jpg" width="880" height="590" alt="Bhagawan Sri Sathya Sai Baba seated beside a Sri Krishna idol"><figcaption><a href="https://archive.sssmediacentre.org/journals/vol_12/01AUG14/The-Mystical-Sport-of-Sai-Krishna.htm" target="_blank" rel="noopener noreferrer">Image: Sri Sathya Sai Media Centre ↗</a></figcaption></figure>';
@@ -48,7 +48,7 @@
     const [b,t,a] = location.hash.slice(1).split('/');
     const bi = books.findIndex(x=>x.id===b);
     const ti = bi < 0 ? -1 : books[bi].topics.findIndex(x=>x.id===t);
-    const requestedTab=a==='summary'||!activityNames[a]?defaultTab(bi,ti):a;
+    const requestedTab=!activityNames[a]?defaultTab(bi,ti):a;
     const safeTab=requestedTab==='readbook'&&!(bi>=0&&ti>=0&&isBhagavataReadBook(books[bi].id,books[bi].topics[ti].id))?'summary':requestedTab;
     setStudy(bi < 0 ? 0 : bi,ti < 0 ? 0 : ti,safeTab);
   }
@@ -64,7 +64,7 @@
     const originalLinks=chapterMode&&b.pdfUrls?b.pdfUrls.map(p=>`<a href="${sourceLink(p.url)}" target="_blank" rel="noopener noreferrer">${escape(p.label)} PDF ↗</a>`).join(''):`<a href="${sourceLink(b.sourceUrl)}" target="_blank" rel="noopener noreferrer">Read original book ↗</a>${chapterMode?'':(b.pdfUrls || (b.pdfUrl?[{label:'Book',url:b.pdfUrl}]:[])).map(p=>`<a href="${sourceLink(p.url)}" target="_blank" rel="noopener noreferrer">${escape(p.label)} PDF ↗</a>`).join('')}`;
     const odiaLink=['upanishad','sutra','bhagavata-vahini','geetha-vahini','ramakatha-rasavahini','jnana-vahini','sathya-sai','leela-kaivalya','sandeha-nivarini','prasnottara','prashanthi-vahini','dhyana-vahini','dharma-vahini','prema-vahini','vidya'].includes(b.id)?`<a href="odia.html#${b.id}/${t.id}/${activeTab}" lang="or">ଓଡ଼ିଆରେ ପଢ଼ନ୍ତୁ →</a>`:'';
     const hindiAvailable=['upanishad','sutra','bhagavata-vahini','geetha-vahini','ramakatha-rasavahini','prema-vahini','dharma-vahini','dhyana-vahini','prashanthi-vahini','jnana-vahini','leela-kaivalya','prasnottara','sandeha-nivarini','sathya-sai','vidya'].includes(b.id);
-    document.querySelector('.language').innerHTML=`English${odiaLink?` · <a href="odia.html#${b.id}/${t.id}/${activeTab}" lang="or">ଓଡ଼ିଆ →</a>`:''} · <a href="hindi.html#${hindiAvailable?b.id:'upanishad'}/${hindiAvailable?t.id:'chapter-01'}/${hindiAvailable?activeTab:'summary'}" lang="hi" title="हिंदी अध्ययन संग्रह">हिंदी →</a>`;
+    document.querySelector('.language').innerHTML=`English${odiaLink?` · <a href="odia.html#${b.id}/${t.id}/${activeTab}" lang="or">ଓଡ଼ିଆ →</a>`:''} · <a href="hindi.html#${hindiAvailable?b.id:'upanishad'}/${hindiAvailable?t.id:'chapter-01'}/${hindiAvailable?activeTab:'questions'}" lang="hi" title="हिंदी अध्ययन संग्रह">हिंदी →</a>`;
     $('book-header').innerHTML=`<div class="book-copy"><p class="eyebrow">THE VAHINI SERIES · ENGLISH STUDY</p><h2>${escape(b.title)}</h2><p class="description">${escape(b.description)}</p><div class="book-meta"><span>${b.topics.length} ${chapterMode?unit+'s':'study topics'}</span><span class="meta-divider" aria-hidden="true"></span>${originalLinks}${odiaLink}</div></div>${art}`;
     $('topics-heading').textContent=`Study ${unit}s`;
     $('topic-position').textContent=t.part?`Part ${t.part} · Chapter ${t.chapterNumber} · ${topicIndex+1} of ${b.topics.length}`:`${unit[0].toUpperCase()+unit.slice(1)} ${topicIndex+1} of ${b.topics.length}`;
@@ -87,63 +87,11 @@
   function renderActivity() {
     const t=currentTopic(), title=`<h3 class="activity-title">${escape(t.title)}</h3>`;
     if(activeTab==='readbook' && isBhagavataReadBook()) {
-      const chapter=currentTopic().id==='chapter-18'?'18':currentTopic().id==='chapter-17'?'17':currentTopic().id==='chapter-16'?'16':currentTopic().id==='chapter-15'?'15':currentTopic().id==='chapter-14'?'14':currentTopic().id==='chapter-13'?'13':currentTopic().id==='chapter-12'?'12':currentTopic().id==='chapter-11'?'11':currentTopic().id==='chapter-10'?'10':currentTopic().id==='chapter-09'?'09':currentTopic().id==='chapter-08'?'08':currentTopic().id==='chapter-07'?'07':currentTopic().id==='chapter-06'?'06':currentTopic().id==='chapter-05'?'05':currentTopic().id==='chapter-04'?'04':currentTopic().id==='chapter-03'?'03':currentTopic().id==='chapter-02'?'02':'01';
-      if(chapter==='18') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH18||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">Full chapter · provided English text</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='17') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH17||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">Full chapter · provided English text</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='16') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH16||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML = `${heading}<p class="qa-intro">Full chapter · provided English text</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='15') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH15||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='14') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH14||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='13') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH13||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='12') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH12||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='11') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH11||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='10') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH10||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='09') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH09||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='08') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH08||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='07') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH07||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='06') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH06||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='05') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH05||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='04') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH04||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else if(chapter==='03') {
-        const paragraphs=String(window.VAHINI_READ_BOOK_EN_CH03||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      } else {
-        const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
-        $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
-      }
+      const paragraphs=String(readBookText()||'').split(/\n\s*\n/).filter(Boolean);
+      $('activity').innerHTML=`${title}<p class="qa-intro">Full chapter text · English</p><div class="read-book-text">${paragraphs.map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}</div>`;
     } else if(activeTab==='summary') {
       $('activity').innerHTML=`${title}<div class="summary-grid"><div>${t.summary.split(/\n\s*\n/).map(p=>`<p class="summary-text">${escape(p)}</p>`).join('')}<div class="action-row"><button class="primary-button" data-tab="questions">Explore the questions</button><button class="secondary-button" data-tab="quiz">Try the quiz</button></div><p class="study-note">${t.pdfStartPage?`A ${currentBook().unitLabel==='section'?'section':'chapter'} summary based only on the supplied ${escape(currentBook().title)} ${t.part?`Part ${t.part} `:''}PDF, written in our own words.`:'A brief study summary based on the linked Vahini text.'}</p></div>${referenceCard(t)}</div>`;
-      $('activity').innerHTML += window.renderRamakathaStudy(currentBook().id,t,'en');
-    } else if(activeTab==='questions') {
+      $('activity').innerHTML += window.renderRamakathaStudy(currentBook().id,t,'en');    } else if(activeTab==='questions') {
       $('activity').innerHTML=`${title}<p class="qa-intro">Reflect on each question, then open the answer.</p>${t.qa.map((q,i)=>`<details><summary>${escape(q.q)}</summary><p>${escape(q.a)}</p></details>`).join('')}<p class="study-note">Study questions written from <a href="${sourceLink(t.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(t.chapter)}</a>.</p><div class="action-row"><button class="primary-button" data-tab="quiz">Test your understanding</button></div>`;
     } else if(activeTab==='quiz') {
       const attempt=getAttempt();
