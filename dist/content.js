@@ -10,7 +10,29 @@ window.VAHINI_BOOKS = [
     "studyNote": "Based solely on the supplied Gita Vahini PDF. Its 27 chapters have Roman-numeral labels rather than titles; this study follows those chapters, not the 18 chapters of the Bhagavad Gita. Summaries and answers are original paraphrases. Refer to the linked PDF pages for the full teaching.",
     "coverage": "All 27 chapters in the supplied edition",
     "topics": [
-      {
+            {
+        "id": "preface",
+        "title": "Preface",
+        "chapter": "Preface",
+        "chapterNumber": 0,
+        "sourceUrl": "assets/gita-vahini.pdf",
+        "sourceLabel": "Preface",
+        "summary": "N. Kasturi presents Bhagawan as the timeless charioteer who guides each person through the inner battle. The Gita Vahini offers comfort, strength, and faith, and invites readers to discover the divine Oneness underlying the world’s diversity.",
+        "qa": [
+          {"q":"Who is the Sanatana Sarathi?","a":"Bhagawan Sri Sathya Sai Baba, the timeless charioteer who guides humanity."},
+          {"q":"What did Krishna teach Arjuna when grief and fear overcame him?","a":"The science of recognising one’s Oneness with all."},
+          {"q":"What do the reins and whip represent in the charioteer image?","a":"Discrimination holds the reins, and detachment is the whip that directs the senses."},
+          {"q":"What does the preface say the Gita Vahini is not?","a":"It is not a commentary or summary of the Geeta taught on the Kurukshetra battlefield."},
+          {"q":"What is the basis of the manifold world, according to the closing blessing?","a":"The experience of Oneness."}
+        ],
+        "quiz": [
+          {"q":"Who is the Sanatana Sarathi?","options":["Bhagawan Sri Sathya Sai Baba","King Ikshvaku","N. Kasturi","Manu"],"correct":0,"explanation":"The preface identifies Bhagawan Sri Sathya Sai Baba as the timeless charioteer.","type":"recall"},
+          {"q":"What did Krishna teach Arjuna when grief and fear overcame him?","options":["The science of recognising Oneness with all","How to avoid every duty","A history of the kingdoms","How to govern a city"],"correct":0,"explanation":"Krishna taught Arjuna to recognise his Oneness with all, removing grief and fear.","type":"recall"},
+          {"q":"In the charioteer image, what holds the reins?","options":["Ambition","Discrimination","Anger","Attachment"],"correct":1,"explanation":"The preface says discrimination holds the reins, while detachment is the whip.","type":"recall"},
+          {"q":"What does Kasturi say the Gita Vahini is not?","options":["A commentary or summary of the battlefield Geeta","A book that can be read repeatedly","A stream of spiritual teaching","A source of comfort and strength"],"correct":0,"explanation":"The preface expressly says this book is not a commentary or summary of the Geeta taught at Kurukshetra.","type":"recall"},
+          {"q":"What is described as the basis of the manifoldness?","options":["Modern science","The experience of Oneness","Worldly ambition","The battlefield"],"correct":1,"explanation":"The closing blessing calls the experience of Oneness the basis of this manifoldness.","type":"recall"}
+        ]
+      },{
         "id": "chapter-01",
         "title": "Chapter I",
         "chapter": "Chapter I",
@@ -6277,7 +6299,29 @@ window.VAHINI_BOOKS = [
     "studyNote": "Based solely on the supplied Bhagavatha Vahini PDF. These study summaries and questions are paraphrases; consult the linked chapter for the full text.",
     "coverage": "All 42 chapters in the supplied edition",
     "topics": [
-      {
+            {
+        "id": "preface",
+        "title": "Preface",
+        "chapter": "Preface",
+        "chapterNumber": 0,
+        "sourceUrl": "assets/bhagavatha-vahini.pdf",
+        "sourceLabel": "Preface",
+        "summary": "N. Kasturi presents the Bhagavatam as spiritual counsel for facing death, a sacred stream of Krishna’s episodes, and a guide to devotion. He invites readers to approach Bhagawan’s explanation with humility, diligence, and steadfastness.",
+        "qa": [
+          {"q":"What does the preface say the Bhagavatam offers its reader?","a":"Counsel for facing death and seeing beyond it, along with spiritual nourishment through Krishna’s episodes."},
+          {"q":"What is the Bhagavatam compared to?","a":"A Ganga that emerges from the Lord and ultimately merges in Him."},
+          {"q":"What does the preface say Bhagawan’s return as Sathya Sai seeks to revive?","a":"Dharma among people and reverence for the ancient spiritual texts."},
+          {"q":"How does Kasturi invite the reader to approach the book?","a":"With humility, diligence, devotion, and steadfast observance of its lessons."},
+          {"q":"Which sages and king are named as examples of reaching or learning the goal?","a":"Vyasa, Narada, Shuka, and Parikshit."}
+        ],
+        "quiz": [
+          {"q":"What does the preface say the Bhagavatam offers its reader?","options":["Spiritual counsel and nourishment","A manual of statecraft","A history of every kingdom","A guide to military training"],"correct":0,"explanation":"Kasturi describes it as counsel for meeting death and as spiritual nourishment through Krishna’s episodes.","type":"recall"},
+          {"q":"What is the Bhagavatam compared to?","options":["A mountain","A Ganga flowing from and merging in the Lord","A royal road","A collection of laws"],"correct":1,"explanation":"The preface calls the Bhagavatam a Ganga that emerges from the Lord and merges in Him.","type":"recall"},
+          {"q":"What is one important aspect of the revival described in the preface?","options":["Re-establishing reverence for ancient spiritual texts","Replacing all scriptures","Ending spiritual study","Restoring an empire"],"correct":0,"explanation":"The preface names renewed reverence for texts such as the Bible, Quran, Zend Avesta, Tripitaka, Vedas, and Bhagavata.","type":"recall"},
+          {"q":"How should a reader approach the book, according to Kasturi?","options":["With humility, diligence, devotion, and steadfastness","Only for entertainment","By reading selectively and dismissing its lessons","As a historical record alone"],"correct":0,"explanation":"The closing paragraph asks readers to open it humbly, read diligently, revere devotionally, and observe its lessons steadfastly.","type":"recall"},
+          {"q":"Who is said to have composed the Bhagavata at Narada’s suggestion?","options":["Parikshit","Vyasa","Kasturi","Sathya Sai"],"correct":1,"explanation":"The preface says Vyasa composed the work at the suggestion of the sage Narada.","type":"recall"}
+        ]
+      },{
         "id": "chapter-01",
         "title": "The Bhagavatha\r",
         "chapter": "Chapter 1 · The Bhagavatha\r",
