@@ -2876,7 +2876,7 @@ window.VAHINI_BOOKS = [
     "title": "Ramakatha Rasavahini",
     "hindiTitle": "रामकथा रसवाहिनी",
     "subtitle": "The Sweet Story of Rama",
-    "description": "Study both parts of Bhagawan Sri Sathya Sai Baba’s Ramakatha Rasavahini together: 18 chapters in Part 1 and 14 in Part 2. Each chapter includes a fuller summary, questions and answers, and five quiz questions drawn only from the supplied books.",
+    "description": "Study both parts of Bhagawan Sri Sathya Sai Baba’s Ramakatha Rasavahini together: 19 chapters in Part 1 and 14 in Part 2. Each chapter includes a fuller summary, questions and answers, and five quiz questions drawn only from the supplied books.",
     "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf",
     "pdfUrl": "assets/ramakatha-rasavahini-part-1.pdf",
     "pdfUrls": [
@@ -2890,7 +2890,7 @@ window.VAHINI_BOOKS = [
       }
     ],
     "studyNote": "Based solely on the two supplied Ramakatha Rasavahini PDFs. These summaries and questions are paraphrases; consult the linked chapter for the full text.",
-    "coverage": "All 32 chapters from Parts 1 and 2 in their original order",
+    "coverage": "All 33 chapters from Parts 1 and 2 in their original order",
     "topics": [
       {
         "id": "preface",
@@ -2903,15 +2903,27 @@ window.VAHINI_BOOKS = [
         "quiz": []
       },
       {
-        "id": "part-1-chapter-01",
-        "title": "Rama—Prince and Principle",
-        "chapter": "Part 1 · Chapter 1 · Rama—Prince and Principle",
+        "id": "part-1-the-inner-meaning",
+        "title": "The Inner Meaning",
+        "chapter": "Part 1 · Chapter 1 · The Inner Meaning",
         "part": 1,
         "chapterNumber": 1,
+        "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf",
+        "sourceLabel": "Part 1 · Chapter 1",
+        "summary": "",
+        "qa": [],
+        "quiz": []
+      },
+      {
+        "id": "part-1-chapter-01",
+        "title": "Rama—Prince and Principle",
+        "chapter": "Part 1 · Chapter 2 · Rama—Prince and Principle",
+        "part": 1,
+        "chapterNumber": 2,
         "pdfStartPage": 12,
         "pdfEndPage": 15,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=12",
-        "sourceLabel": "Part 1 · Chapter 1, PDF pages 12–15",
+        "sourceLabel": "Part 1 · Chapter 2, PDF pages 12–15",
         "summary": "The opening chapter presents Rama both as the prince of the narrative and as the divine principle sustaining the universe. It compares the Ramayana's sweetness to sugar cane: however the story turns through joy, sorrow, wonder, or conflict, compassion and love of dharma remain its underlying flavour. The streams of Rama's compassion and Lakshmana's devotion are compared to rivers that join and flow together.\n\nThe reader is asked to approach the work as the account of an Avatar and to understand the values expressed through its events. Family relationships and historical details matter, but they should not obscure the spiritual meaning. Human effort and divine grace are both necessary to fulfilment. The chapter also discusses the guiding place of sages and the importance of carrying out duty. Rama's story is finally described as universal rather than confined to one human lifetime: the divine reality it reveals is present in all beings and throughout time.",
         "qa": [
           {
@@ -2948,7 +2960,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The sugar-cane comparison describes the continuing sweetness beneath varied events.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=12",
-            "sourceLabel": "Part 1 · Chapter 1, PDF pages 12–15"
+            "sourceLabel": "Part 1 · Chapter 2, PDF pages 12–15"
           },
           {
             "q": "What quality is particularly associated with Lakshmana's stream?",
@@ -2962,7 +2974,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter pairs Rama's compassion with Lakshmana's devotion.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=12",
-            "sourceLabel": "Part 1 · Chapter 1, PDF pages 12–15"
+            "sourceLabel": "Part 1 · Chapter 2, PDF pages 12–15"
           },
           {
             "q": "What two factors contribute to spiritual fulfilment?",
@@ -2976,7 +2988,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Individual effort is described as one half of the pursuit, with divine grace completing it.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=12",
-            "sourceLabel": "Part 1 · Chapter 1, PDF pages 12–15"
+            "sourceLabel": "Part 1 · Chapter 2, PDF pages 12–15"
           },
           {
             "q": "How should the Ramayana primarily be approached?",
@@ -2990,7 +3002,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter asks readers to seek the values expressed by the incarnation.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=12",
-            "sourceLabel": "Part 1 · Chapter 1, PDF pages 12–15"
+            "sourceLabel": "Part 1 · Chapter 2, PDF pages 12–15"
           },
           {
             "q": "Why is Rama's story called the story of the universe?",
@@ -3004,20 +3016,20 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama is described as present in all, beyond a single historical period.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=12",
-            "sourceLabel": "Part 1 · Chapter 1, PDF pages 12–15"
+            "sourceLabel": "Part 1 · Chapter 2, PDF pages 12–15"
           }
         ]
       },
       {
         "id": "part-1-chapter-02",
         "title": "The Imperial Line: Raghu",
-        "chapter": "Part 1 · Chapter 2 · The Imperial Line: Raghu",
+        "chapter": "Part 1 · Chapter 3 · The Imperial Line: Raghu",
         "part": 1,
-        "chapterNumber": 2,
+        "chapterNumber": 3,
         "pdfStartPage": 16,
         "pdfEndPage": 21,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=16",
-        "sourceLabel": "Part 1 · Chapter 2, PDF pages 16–21",
+        "sourceLabel": "Part 1 · Chapter 3, PDF pages 16–21",
         "summary": "The narrative introduces the Solar dynasty through Khatvanga and his son Dilipa. Dilipa and Sudakshina rule with concern for their subjects, but their lack of an heir causes distress. Vasishta explains that Dilipa once neglected to honour Kamadhenu and advises service to the cow Nandini. Dilipa's willingness to give his own life to protect her from a lion brings the release of the curse and the promise of a son.\n\nRaghu's birth and righteous rule continue the dynasty's association with responsibility and virtue. The account then moves to Aja and Indumathi, and to the sorrow caused by her sudden death. Narada explains that she was the celestial Harini, living under a curse that would end when a heavenly flower touched her. What appears only as bereavement to Aja is also her release. Dasaratha eventually receives the responsibility of kingship, carrying the line forward amid the passing of earlier generations.",
         "qa": [
           {
@@ -3054,7 +3066,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Dilipa and his queen visit their family preceptor for guidance.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=16",
-            "sourceLabel": "Part 1 · Chapter 2, PDF pages 16–21"
+            "sourceLabel": "Part 1 · Chapter 3, PDF pages 16–21"
           },
           {
             "q": "Which cow is Dilipa instructed to serve?",
@@ -3068,7 +3080,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Vasishta assigns the care and protection of Nandini as the prescribed service.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=16",
-            "sourceLabel": "Part 1 · Chapter 2, PDF pages 16–21"
+            "sourceLabel": "Part 1 · Chapter 3, PDF pages 16–21"
           },
           {
             "q": "What does Dilipa offer when a lion threatens the cow?",
@@ -3082,7 +3094,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His readiness for self-sacrifice is followed by the lifting of the curse.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=16",
-            "sourceLabel": "Part 1 · Chapter 2, PDF pages 16–21"
+            "sourceLabel": "Part 1 · Chapter 3, PDF pages 16–21"
           },
           {
             "q": "What ends Indumathi's earthly life and curse?",
@@ -3096,7 +3108,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Narada explains the condition attached to Harini's curse.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=16",
-            "sourceLabel": "Part 1 · Chapter 2, PDF pages 16–21"
+            "sourceLabel": "Part 1 · Chapter 3, PDF pages 16–21"
           },
           {
             "q": "Who succeeds Aja as ruler?",
@@ -3110,20 +3122,20 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter carries the dynasty forward to Dasaratha.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=16",
-            "sourceLabel": "Part 1 · Chapter 2, PDF pages 16–21"
+            "sourceLabel": "Part 1 · Chapter 3, PDF pages 16–21"
           }
         ]
       },
       {
         "id": "part-1-chapter-03",
         "title": "Curse of No Progeny for Dasaratha",
-        "chapter": "Part 1 · Chapter 3 · Curse of No Progeny for Dasaratha",
+        "chapter": "Part 1 · Chapter 4 · Curse of No Progeny for Dasaratha",
         "part": 1,
-        "chapterNumber": 3,
+        "chapterNumber": 4,
         "pdfStartPage": 22,
         "pdfEndPage": 26,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=22",
-        "sourceLabel": "Part 1 · Chapter 3, PDF pages 22–26",
+        "sourceLabel": "Part 1 · Chapter 4, PDF pages 22–26",
         "summary": "Dasaratha's prowess arouses Ravana's envy. When Ravana demands tribute, Dasaratha demonstrates his strength by sending arrows that fasten Lanka's gates. Ravana then seeks protection through austerity and asks Brahma that Dasaratha should have no children. He also tries to prevent the king's marriage by abducting Kausalya and casting her into the sea in a box. Sumanthra finds and rescues her, and the hostile scheme does not prevent the intended union.\n\nThe chapter introduces Dasaratha's queens, Kausalya, Sumitra, and Kaika, and the continuing concern for an heir. A sacrifice is arranged for the birth of sons, with Rishyasringa directing the rites. From the sacred fire a radiant being appears carrying a vessel of payasam. A heavenly instruction tells the king to distribute it among his three queens. The chapter ends with public joy, presenting the divine gift as the answer to a difficulty that royal strength alone could not resolve.",
         "qa": [
           {
@@ -3160,7 +3172,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Ravana hears of Dasaratha's greatness and seeks to overpower him.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=22",
-            "sourceLabel": "Part 1 · Chapter 3, PDF pages 22–26"
+            "sourceLabel": "Part 1 · Chapter 4, PDF pages 22–26"
           },
           {
             "q": "How does Dasaratha answer Ravana's demand for tribute?",
@@ -3174,7 +3186,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The demonstration humiliates Ravana without a conventional battle.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=22",
-            "sourceLabel": "Part 1 · Chapter 3, PDF pages 22–26"
+            "sourceLabel": "Part 1 · Chapter 4, PDF pages 22–26"
           },
           {
             "q": "Who discovers Kausalya in the box?",
@@ -3188,7 +3200,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The minister rescues her and returns her to her father.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=22",
-            "sourceLabel": "Part 1 · Chapter 3, PDF pages 22–26"
+            "sourceLabel": "Part 1 · Chapter 4, PDF pages 22–26"
           },
           {
             "q": "Who directs the sacrifice for sons?",
@@ -3202,7 +3214,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He serves as the chief organiser and makes the prescribed offerings.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=22",
-            "sourceLabel": "Part 1 · Chapter 3, PDF pages 22–26"
+            "sourceLabel": "Part 1 · Chapter 4, PDF pages 22–26"
           },
           {
             "q": "What does the radiant being bring from the fire?",
@@ -3216,20 +3228,20 @@ window.VAHINI_BOOKS = [
             "explanation": "The king is instructed to distribute the sweet milk preparation among his queens.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=22",
-            "sourceLabel": "Part 1 · Chapter 3, PDF pages 22–26"
+            "sourceLabel": "Part 1 · Chapter 4, PDF pages 22–26"
           }
         ]
       },
       {
         "id": "part-1-chapter-04",
         "title": "Birth of Dasaratha's Four Sons",
-        "chapter": "Part 1 · Chapter 4 · Birth of Dasaratha's Four Sons",
+        "chapter": "Part 1 · Chapter 5 · Birth of Dasaratha's Four Sons",
         "part": 1,
-        "chapterNumber": 4,
+        "chapterNumber": 5,
         "pdfStartPage": 27,
         "pdfEndPage": 33,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=27",
-        "sourceLabel": "Part 1 · Chapter 4, PDF pages 27–33",
+        "sourceLabel": "Part 1 · Chapter 5, PDF pages 27–33",
         "summary": "The sacred payasam is divided among the queens. When an eagle carries away Sumitra's portion, Kausalya and Kaika each share some of theirs with her. The account emphasises affection and cooperation among the three women. In time, Kausalya and Kaika each bear a son, while Sumitra bears twins. Ayodhya celebrates, and Dasaratha marks the births with generous gifts and care for people in need.\n\nVasishta names the children Rama, Bharatha, Lakshmana, and Satrughna, explaining the significance of their names and future qualities. The narrative describes their distinctive bonds, especially Lakshmana's attraction to Rama, and includes Kausalya's experience of the child's divinity. As the boys grow, they enter the preceptor's household and learn through service, discipline, and instruction. Rama's extraordinary grasp of lessons amazes the teacher. The brothers' closeness remains central even in their studies, showing that their companionship is more than ordinary family attachment.",
         "qa": [
           {
@@ -3266,7 +3278,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The incident leads the other queens to share their portions with her.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=27",
-            "sourceLabel": "Part 1 · Chapter 4, PDF pages 27–33"
+            "sourceLabel": "Part 1 · Chapter 5, PDF pages 27–33"
           },
           {
             "q": "Who shares payasam with Sumitra?",
@@ -3280,7 +3292,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Their response expresses the mutual affection of the queens.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=27",
-            "sourceLabel": "Part 1 · Chapter 4, PDF pages 27–33"
+            "sourceLabel": "Part 1 · Chapter 5, PDF pages 27–33"
           },
           {
             "q": "Which queen gives birth to twins?",
@@ -3294,7 +3306,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Lakshmana and Satrughna are Sumitra's sons.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=27",
-            "sourceLabel": "Part 1 · Chapter 4, PDF pages 27–33"
+            "sourceLabel": "Part 1 · Chapter 5, PDF pages 27–33"
           },
           {
             "q": "What meaning is given to Rama's name?",
@@ -3308,7 +3320,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Vasishta says the child will bring joy and fulfilment to others.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=27",
-            "sourceLabel": "Part 1 · Chapter 4, PDF pages 27–33"
+            "sourceLabel": "Part 1 · Chapter 5, PDF pages 27–33"
           },
           {
             "q": "Which brother particularly longs for Rama's company during their studies?",
@@ -3322,20 +3334,20 @@ window.VAHINI_BOOKS = [
             "explanation": "Lakshmana says that Rama's presence matters to him more than lessons.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=27",
-            "sourceLabel": "Part 1 · Chapter 4, PDF pages 27–33"
+            "sourceLabel": "Part 1 · Chapter 5, PDF pages 27–33"
           }
         ]
       },
       {
         "id": "part-1-chapter-05",
         "title": "The Guru and the Pupils",
-        "chapter": "Part 1 · Chapter 5 · The Guru and the Pupils",
+        "chapter": "Part 1 · Chapter 6 · The Guru and the Pupils",
         "part": 1,
-        "chapterNumber": 5,
+        "chapterNumber": 6,
         "pdfStartPage": 34,
         "pdfEndPage": 41,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=34",
-        "sourceLabel": "Part 1 · Chapter 5, PDF pages 34–41",
+        "sourceLabel": "Part 1 · Chapter 6, PDF pages 34–41",
         "summary": "The princes live in their teacher's household with humility, accepting its discipline instead of palace comfort. Vasishta praises their progress and especially Rama's effortless mastery of the Vedas. Rama's conduct also shows consideration: when his father and teacher begin discussing the boys, he quietly withdraws with his brothers. Their education is presented as character and reverence as well as knowledge.\n\nAfter returning home, the brothers undertake a pilgrimage. Their later inwardness and detachment trouble the family, who interpret the change with parental anxiety. Rama raises profound questions about the individual, the world, and the divine, asking what unity lies beneath apparent distinctions. Vasishta recognises the spiritual depth of these inquiries. The dialogues are identified with the Yoga-Vasishta, also called the Rama-Gita. The chapter contrasts the parents' concern for ordinary wellbeing with the wisdom emerging through Rama's words, preparing the next stage of his public mission.",
         "qa": [
           {
@@ -3372,7 +3384,7 @@ window.VAHINI_BOOKS = [
             "explanation": "They accept the teacher's way of life and serve him devotedly.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=34",
-            "sourceLabel": "Part 1 · Chapter 5, PDF pages 34–41"
+            "sourceLabel": "Part 1 · Chapter 6, PDF pages 34–41"
           },
           {
             "q": "What does Rama do when his father and teacher discuss their progress?",
@@ -3386,7 +3398,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Vasishta and Dasaratha appreciate his understanding and humility.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=34",
-            "sourceLabel": "Part 1 · Chapter 5, PDF pages 34–41"
+            "sourceLabel": "Part 1 · Chapter 6, PDF pages 34–41"
           },
           {
             "q": "Why does Vasishta marvel at Rama's Vedic learning?",
@@ -3400,7 +3412,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The teacher sees something beyond ordinary learning in Rama's mastery.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=34",
-            "sourceLabel": "Part 1 · Chapter 5, PDF pages 34–41"
+            "sourceLabel": "Part 1 · Chapter 6, PDF pages 34–41"
           },
           {
             "q": "What change follows the pilgrimage?",
@@ -3414,7 +3426,7 @@ window.VAHINI_BOOKS = [
             "explanation": "This change causes anxiety to the parents while revealing Rama's spiritual concerns.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=34",
-            "sourceLabel": "Part 1 · Chapter 5, PDF pages 34–41"
+            "sourceLabel": "Part 1 · Chapter 6, PDF pages 34–41"
           },
           {
             "q": "What text is associated with Rama's dialogues with Vasishta?",
@@ -3428,20 +3440,20 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter identifies the dialogues by these names.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=34",
-            "sourceLabel": "Part 1 · Chapter 5, PDF pages 34–41"
+            "sourceLabel": "Part 1 · Chapter 6, PDF pages 34–41"
           }
         ]
       },
       {
         "id": "part-1-chapter-06",
         "title": "The Call and the First Victory",
-        "chapter": "Part 1 · Chapter 6 · The Call and the First Victory",
+        "chapter": "Part 1 · Chapter 7 · The Call and the First Victory",
         "part": 1,
-        "chapterNumber": 6,
+        "chapterNumber": 7,
         "pdfStartPage": 42,
         "pdfEndPage": 56,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=42",
-        "sourceLabel": "Part 1 · Chapter 6, PDF pages 42–56",
+        "sourceLabel": "Part 1 · Chapter 7, PDF pages 42–56",
         "summary": "Viswamitra comes to Ayodhya because demons repeatedly interrupt and defile his sacred rite. Dasaratha welcomes him and promises assistance, but the request for Rama tests the father's attachment. With the guidance of Vasishta, the princes' journey with the sage becomes the next step in their mission. Rama and Lakshmana listen, serve, and accept the discipline of their guide.\n\nThe journey includes accounts of sacred places and the condition of lands harmed by destructive forces. Rama overcomes Thataki, and Viswamitra grants him powerful weapons. The brothers then guard the sacrifice so that it can be completed without disruption. At the end, they do not claim rewards or independence: they ask whether there is further work they should do. The ascetics recognise their extraordinary nature and express gratitude. Protection of the rite, obedience to the teacher, and service to the welfare of others are joined throughout the chapter.",
         "qa": [
           {
@@ -3478,7 +3490,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The repeated desecration prevents the rite from proceeding.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=42",
-            "sourceLabel": "Part 1 · Chapter 6, PDF pages 42–56"
+            "sourceLabel": "Part 1 · Chapter 7, PDF pages 42–56"
           },
           {
             "q": "Which two princes accompany the sage?",
@@ -3492,7 +3504,7 @@ window.VAHINI_BOOKS = [
             "explanation": "They undertake the task of protecting Viswamitra's sacrifice.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=42",
-            "sourceLabel": "Part 1 · Chapter 6, PDF pages 42–56"
+            "sourceLabel": "Part 1 · Chapter 7, PDF pages 42–56"
           },
           {
             "q": "Which destructive figure is defeated during the journey?",
@@ -3506,7 +3518,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama's victory removes a threat in the region.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=42",
-            "sourceLabel": "Part 1 · Chapter 6, PDF pages 42–56"
+            "sourceLabel": "Part 1 · Chapter 7, PDF pages 42–56"
           },
           {
             "q": "What does Viswamitra give Rama after this victory?",
@@ -3520,7 +3532,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The sage equips Rama as the journey and mission continue.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=42",
-            "sourceLabel": "Part 1 · Chapter 6, PDF pages 42–56"
+            "sourceLabel": "Part 1 · Chapter 7, PDF pages 42–56"
           },
           {
             "q": "What do the brothers ask after the rite is completed?",
@@ -3534,20 +3546,20 @@ window.VAHINI_BOOKS = [
             "explanation": "Their question expresses readiness for continued service.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=42",
-            "sourceLabel": "Part 1 · Chapter 6, PDF pages 42–56"
+            "sourceLabel": "Part 1 · Chapter 7, PDF pages 42–56"
           }
         ]
       },
       {
         "id": "part-1-chapter-07",
         "title": "Winning Sita",
-        "chapter": "Part 1 · Chapter 7 · Winning Sita",
+        "chapter": "Part 1 · Chapter 8 · Winning Sita",
         "part": 1,
-        "chapterNumber": 7,
+        "chapterNumber": 8,
         "pdfStartPage": 57,
         "pdfEndPage": 85,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=57",
-        "sourceLabel": "Part 1 · Chapter 7, PDF pages 57–85",
+        "sourceLabel": "Part 1 · Chapter 8, PDF pages 57–85",
         "summary": "An invitation from Janaka leads Viswamitra and the princes toward Mithila. Rama first seeks clarity about obedience to his father's instructions, and the sage explains that accompanying him fulfils those instructions. Their journey becomes a setting for accounts of Viswamitra, the Ganga, and other sacred histories. Rama also releases Ahalya before they reach the city where Janaka's great bow is kept.\n\nIn Mithila, the challenge connected with Siva's bow leads to Rama's union with Sita. Rama breaks the bow, and messengers invite Dasaratha to take part in the marriage arrangements. The royal lineages are recounted, and four marriages unite the families. Joyful ceremony is followed by the tenderness and sorrow of departure. Janaka must bear separation from his daughters, and his ministers remind him of the worthiness of the brides and bridegrooms. The chapter places the celebrated victory within a larger account of obedience, sacred learning, family duty, and affection.",
         "qa": [
           {
@@ -3584,7 +3596,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Janaka's invitation begins the journey described in this chapter.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=57",
-            "sourceLabel": "Part 1 · Chapter 7, PDF pages 57–85"
+            "sourceLabel": "Part 1 · Chapter 8, PDF pages 57–85"
           },
           {
             "q": "Why does Rama initially ask about travelling onward?",
@@ -3598,7 +3610,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Viswamitra explains the full scope of Dasaratha's command.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=57",
-            "sourceLabel": "Part 1 · Chapter 7, PDF pages 57–85"
+            "sourceLabel": "Part 1 · Chapter 8, PDF pages 57–85"
           },
           {
             "q": "Whom does Rama release on the journey?",
@@ -3612,7 +3624,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The episode precedes their arrival in Mithila.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=57",
-            "sourceLabel": "Part 1 · Chapter 7, PDF pages 57–85"
+            "sourceLabel": "Part 1 · Chapter 8, PDF pages 57–85"
           },
           {
             "q": "Whose bow does Rama break?",
@@ -3626,7 +3638,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The breaking of the bow is central to winning Sita.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=57",
-            "sourceLabel": "Part 1 · Chapter 7, PDF pages 57–85"
+            "sourceLabel": "Part 1 · Chapter 8, PDF pages 57–85"
           },
           {
             "q": "How many weddings are arranged between the royal families?",
@@ -3640,20 +3652,20 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter describes the proposal and celebration of four marriages.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=57",
-            "sourceLabel": "Part 1 · Chapter 7, PDF pages 57–85"
+            "sourceLabel": "Part 1 · Chapter 8, PDF pages 57–85"
           }
         ]
       },
       {
         "id": "part-1-chapter-08",
         "title": "Another Challenge to Rama's Prowess",
-        "chapter": "Part 1 · Chapter 8 · Another Challenge to Rama's Prowess",
+        "chapter": "Part 1 · Chapter 9 · Another Challenge to Rama's Prowess",
         "part": 1,
-        "chapterNumber": 8,
+        "chapterNumber": 9,
         "pdfStartPage": 86,
         "pdfEndPage": 91,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=86",
-        "sourceLabel": "Part 1 · Chapter 8, PDF pages 86–91",
+        "sourceLabel": "Part 1 · Chapter 9, PDF pages 86–91",
         "summary": "On the return journey from Mithila, disturbing omens and a violent storm unsettle the wedding party. Vasishta reassures Dasaratha that the threatened danger will be overcome. Parasurama then appears in anger, having heard of Rama's breaking of Siva's bow. He presents another divine bow and demands a demonstration of strength, while Rama remains calm before the challenge.\n\nParasurama recounts the history of Vishnu's bow, his father's death, his campaigns against unrighteous rulers, and his later renunciation. Rama's response brings the confrontation to its resolution and reveals the inadequacy of judging him as an ordinary prince. The party then continues safely to Ayodhya. There, the mothers welcome the sons and their brides with affection, auspicious rites, gifts, and blessings. The chapter moves from a public challenge to a joyful homecoming, holding Rama's composure steady through both threatening and celebratory circumstances.",
         "qa": [
           {
@@ -3690,7 +3702,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The preceptor says that the approaching danger will be averted.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=86",
-            "sourceLabel": "Part 1 · Chapter 8, PDF pages 86–91"
+            "sourceLabel": "Part 1 · Chapter 9, PDF pages 86–91"
           },
           {
             "q": "Who confronts Rama on the return journey?",
@@ -3704,7 +3716,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He comes after hearing of the breaking of Siva's bow.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=86",
-            "sourceLabel": "Part 1 · Chapter 8, PDF pages 86–91"
+            "sourceLabel": "Part 1 · Chapter 9, PDF pages 86–91"
           },
           {
             "q": "Which bow does the challenger bring?",
@@ -3718,7 +3730,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Parasurama explains its divine origin and its passage through his family.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=86",
-            "sourceLabel": "Part 1 · Chapter 8, PDF pages 86–91"
+            "sourceLabel": "Part 1 · Chapter 9, PDF pages 86–91"
           },
           {
             "q": "Who is Parasurama's father?",
@@ -3732,7 +3744,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His account of the bow includes his father and the vengeance that followed his death.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=86",
-            "sourceLabel": "Part 1 · Chapter 8, PDF pages 86–91"
+            "sourceLabel": "Part 1 · Chapter 9, PDF pages 86–91"
           },
           {
             "q": "Where does the wedding party finally receive a joyful welcome?",
@@ -3746,20 +3758,20 @@ window.VAHINI_BOOKS = [
             "explanation": "The mothers greet the princes and their brides on their return home.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=86",
-            "sourceLabel": "Part 1 · Chapter 8, PDF pages 86–91"
+            "sourceLabel": "Part 1 · Chapter 9, PDF pages 86–91"
           }
         ]
       },
       {
         "id": "part-1-chapter-09",
         "title": "Preparations for Rama's Coronation",
-        "chapter": "Part 1 · Chapter 9 · Preparations for Rama's Coronation",
+        "chapter": "Part 1 · Chapter 10 · Preparations for Rama's Coronation",
         "part": 1,
-        "chapterNumber": 9,
+        "chapterNumber": 10,
         "pdfStartPage": 92,
         "pdfEndPage": 97,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=92",
-        "sourceLabel": "Part 1 · Chapter 9, PDF pages 92–97",
+        "sourceLabel": "Part 1 · Chapter 10, PDF pages 92–97",
         "summary": "Bharatha and Satrughna travel with their wives to visit Bharatha's maternal family. Although lovingly received, they miss their father and Rama. Dasaratha likewise feels their absence. The chapter then describes Rama's gentle speech, lack of resentment, care for others, and interest in spiritual inquiry. These qualities establish why he is loved and trusted as a prospective ruler.\n\nDasaratha resolves to transfer the burden of kingship, and preparations begin for Rama's coronation. The family's counsel emphasises the welfare of the people, righteousness, and the honour of the dynasty. Rama makes clear that Lakshmana shares his responsibilities and happiness; Lakshmana seeks only the opportunity to serve. Sumitra rejoices in their bond rather than seeking independent status for her son. The chapter closes with Rama undertaking the prescribed fast and resting on sacred grass, showing discipline and simplicity at the threshold of royal elevation.",
         "qa": [
           {
@@ -3796,7 +3808,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Their visit explains their absence during the coronation preparations.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=92",
-            "sourceLabel": "Part 1 · Chapter 9, PDF pages 92–97"
+            "sourceLabel": "Part 1 · Chapter 10, PDF pages 92–97"
           },
           {
             "q": "How does Rama respond to harsh speech or harm?",
@@ -3810,7 +3822,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His considerate conduct is part of the chapter's account of his qualities.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=92",
-            "sourceLabel": "Part 1 · Chapter 9, PDF pages 92–97"
+            "sourceLabel": "Part 1 · Chapter 10, PDF pages 92–97"
           },
           {
             "q": "What does Dasaratha decide to prepare?",
@@ -3824,7 +3836,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He wishes to place the burden of rule upon Rama.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=92",
-            "sourceLabel": "Part 1 · Chapter 9, PDF pages 92–97"
+            "sourceLabel": "Part 1 · Chapter 10, PDF pages 92–97"
           },
           {
             "q": "What does Lakshmana desire when Rama speaks of responsibility?",
@@ -3838,7 +3850,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Lakshmana regards service to Rama as sufficient good fortune.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=92",
-            "sourceLabel": "Part 1 · Chapter 9, PDF pages 92–97"
+            "sourceLabel": "Part 1 · Chapter 10, PDF pages 92–97"
           },
           {
             "q": "On what does Rama rest during the preparatory observance?",
@@ -3852,20 +3864,20 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter ends with his ritual fast and simple resting place.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=92",
-            "sourceLabel": "Part 1 · Chapter 9, PDF pages 92–97"
+            "sourceLabel": "Part 1 · Chapter 10, PDF pages 92–97"
           }
         ]
       },
       {
         "id": "part-1-chapter-10",
         "title": "Kaika's Two Boons",
-        "chapter": "Part 1 · Chapter 10 · Kaika's Two Boons",
+        "chapter": "Part 1 · Chapter 11 · Kaika's Two Boons",
         "part": 1,
-        "chapterNumber": 10,
+        "chapterNumber": 11,
         "pdfStartPage": 98,
         "pdfEndPage": 112,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=98",
-        "sourceLabel": "Part 1 · Chapter 10, PDF pages 98–112",
+        "sourceLabel": "Part 1 · Chapter 11, PDF pages 98–112",
         "summary": "The city prepares joyfully for Rama's coronation, but Manthara interprets the celebration as a threat to Kaika and Bharatha. Kaika at first rejects her suspicions, affirming the affection of Rama and the other queens. Manthara continues until fear and ambition displace that confidence. She urges Kaika to use the two boons Dasaratha had promised her.\n\nKaika demands that Bharatha be crowned and that Rama spend fourteen years in the forest. Dasaratha is devastated, caught between his pledged word and his love for Rama. Their prolonged exchange exposes the grief created when a promise is used to serve a divisive purpose. Outside, the people still expect a festival. Sumanthra arrives and finds the king in distress, unable at first to understand the change. Kaika sends him to summon Rama. The chapter closes with the contrast between the city's joyful expectations and the sorrow concealed within the palace.",
         "qa": [
           {
@@ -3902,7 +3914,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Manthara presents the celebration as a danger to Kaika's position.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=98",
-            "sourceLabel": "Part 1 · Chapter 10, PDF pages 98–112"
+            "sourceLabel": "Part 1 · Chapter 11, PDF pages 98–112"
           },
           {
             "q": "How does Kaika initially respond to the accusations?",
@@ -3916,7 +3928,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Her first reaction rejects the suspicion Manthara is trying to create.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=98",
-            "sourceLabel": "Part 1 · Chapter 10, PDF pages 98–112"
+            "sourceLabel": "Part 1 · Chapter 11, PDF pages 98–112"
           },
           {
             "q": "How many promised boons does Kaika invoke?",
@@ -3930,7 +3942,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The earlier promise becomes the instrument of her demands.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=98",
-            "sourceLabel": "Part 1 · Chapter 10, PDF pages 98–112"
+            "sourceLabel": "Part 1 · Chapter 11, PDF pages 98–112"
           },
           {
             "q": "What does Kaika demand for Rama?",
@@ -3944,7 +3956,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The exile accompanies her demand that Bharatha receive the crown.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=98",
-            "sourceLabel": "Part 1 · Chapter 10, PDF pages 98–112"
+            "sourceLabel": "Part 1 · Chapter 11, PDF pages 98–112"
           },
           {
             "q": "Whom does Kaika send to bring Rama?",
@@ -3958,20 +3970,20 @@ window.VAHINI_BOOKS = [
             "explanation": "The minister is sent from the distressed king's chamber to Rama's residence.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=98",
-            "sourceLabel": "Part 1 · Chapter 10, PDF pages 98–112"
+            "sourceLabel": "Part 1 · Chapter 11, PDF pages 98–112"
           }
         ]
       },
       {
         "id": "part-1-chapter-11",
         "title": "Lakshmana Goes with Rama",
-        "chapter": "Part 1 · Chapter 11 · Lakshmana Goes with Rama",
+        "chapter": "Part 1 · Chapter 12 · Lakshmana Goes with Rama",
         "part": 1,
-        "chapterNumber": 11,
+        "chapterNumber": 12,
         "pdfStartPage": 113,
         "pdfEndPage": 126,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=113",
-        "sourceLabel": "Part 1 · Chapter 11, PDF pages 113–126",
+        "sourceLabel": "Part 1 · Chapter 12, PDF pages 113–126",
         "summary": "Sumanthra brings Rama to the palace where Dasaratha is overwhelmed by grief. Rama accepts the obligation arising from the promised boons without allowing the loss of the throne to disturb his resolve. His concern is to preserve his father's honour. Sita's earlier words likewise express readiness to accept what is required for the elders' wellbeing.\n\nRama then tells Kausalya of the exile. Her sorrow and Lakshmana's forceful reaction bring different forms of family love into view. Rama answers with calm reasoning about duty rather than allowing anger to determine his course. Lakshmana's devotion leads him to accompany Rama, while Kausalya finally offers blessings for his safety. Rama asks her to care for her health and remember him with a joyful heart. The chapter ends as he walks barefoot toward Sita's apartments, while the citizens' hopes for coronation give way to the reality of departure.",
         "qa": [
           {
@@ -4008,7 +4020,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama accepts the exile as part of preserving the promise.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=113",
-            "sourceLabel": "Part 1 · Chapter 11, PDF pages 113–126"
+            "sourceLabel": "Part 1 · Chapter 12, PDF pages 113–126"
           },
           {
             "q": "Which mother does Rama visit to explain his departure?",
@@ -4022,7 +4034,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Her grief forms a central part of the chapter.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=113",
-            "sourceLabel": "Part 1 · Chapter 11, PDF pages 113–126"
+            "sourceLabel": "Part 1 · Chapter 12, PDF pages 113–126"
           },
           {
             "q": "How does Rama respond to the crisis?",
@@ -4036,7 +4048,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His calm contrasts with the sorrow and anger around him.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=113",
-            "sourceLabel": "Part 1 · Chapter 11, PDF pages 113–126"
+            "sourceLabel": "Part 1 · Chapter 12, PDF pages 113–126"
           },
           {
             "q": "Which brother joins Rama in exile?",
@@ -4050,7 +4062,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Lakshmana's devotion determines his place beside Rama.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=113",
-            "sourceLabel": "Part 1 · Chapter 11, PDF pages 113–126"
+            "sourceLabel": "Part 1 · Chapter 12, PDF pages 113–126"
           },
           {
             "q": "What does Rama ask Kausalya to do during his absence?",
@@ -4064,20 +4076,20 @@ window.VAHINI_BOOKS = [
             "explanation": "He links her wellbeing and blessings with his own happiness.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=113",
-            "sourceLabel": "Part 1 · Chapter 11, PDF pages 113–126"
+            "sourceLabel": "Part 1 · Chapter 12, PDF pages 113–126"
           }
         ]
       },
       {
         "id": "part-1-chapter-12",
         "title": "Sita Insists on Going with Rama",
-        "chapter": "Part 1 · Chapter 12 · Sita Insists on Going with Rama",
+        "chapter": "Part 1 · Chapter 13 · Sita Insists on Going with Rama",
         "part": 1,
-        "chapterNumber": 12,
+        "chapterNumber": 13,
         "pdfStartPage": 127,
         "pdfEndPage": 133,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=127",
-        "sourceLabel": "Part 1 · Chapter 12, PDF pages 127–133",
+        "sourceLabel": "Part 1 · Chapter 13, PDF pages 127–133",
         "summary": "Sita waits with the preparations for coronation ready, but Rama returns without the expected royal honours. He explains Kaika's demands: Bharatha is to receive the crown, and he must live in the forest for fourteen years. Sita questions the meaning of this sudden change and refuses to regard separation from Rama as the easier course.\n\nRama describes the hardships of forest life, but Sita insists that companionship and service to him matter more than comfort. Her resolve finally wins his consent. She says that she needs no elaborate preparation because his presence is all she desires. Before leaving, Rama asks her to arrange kindly for the creatures and possessions in her care. She releases her pet birds, gives the cows to people who will tend them, and distributes belongings for useful purposes. The chapter presents her choice as active, joyful dedication, followed by practical acts of generosity and responsibility.",
         "qa": [
           {
@@ -4114,7 +4126,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His appearance contrasts with the coronation preparations.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=127",
-            "sourceLabel": "Part 1 · Chapter 12, PDF pages 127–133"
+            "sourceLabel": "Part 1 · Chapter 13, PDF pages 127–133"
           },
           {
             "q": "How long is the proposed exile?",
@@ -4128,7 +4140,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama explains the duration of Kaika's second demand.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=127",
-            "sourceLabel": "Part 1 · Chapter 12, PDF pages 127–133"
+            "sourceLabel": "Part 1 · Chapter 13, PDF pages 127–133"
           },
           {
             "q": "What does Sita insist upon?",
@@ -4142,7 +4154,7 @@ window.VAHINI_BOOKS = [
             "explanation": "She values being with Rama above palace comfort.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=127",
-            "sourceLabel": "Part 1 · Chapter 12, PDF pages 127–133"
+            "sourceLabel": "Part 1 · Chapter 13, PDF pages 127–133"
           },
           {
             "q": "What does Sita do with her caged birds?",
@@ -4156,7 +4168,7 @@ window.VAHINI_BOOKS = [
             "explanation": "She personally opens the cages before departing.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=127",
-            "sourceLabel": "Part 1 · Chapter 12, PDF pages 127–133"
+            "sourceLabel": "Part 1 · Chapter 13, PDF pages 127–133"
           },
           {
             "q": "Why are her belongings distributed?",
@@ -4170,20 +4182,20 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama asks that useful possessions and animals be responsibly provided for.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=127",
-            "sourceLabel": "Part 1 · Chapter 12, PDF pages 127–133"
+            "sourceLabel": "Part 1 · Chapter 13, PDF pages 127–133"
           }
         ]
       },
       {
         "id": "part-1-chapter-13",
         "title": "Entering into Exile",
-        "chapter": "Part 1 · Chapter 13 · Entering into Exile",
+        "chapter": "Part 1 · Chapter 14 · Entering into Exile",
         "part": 1,
-        "chapterNumber": 13,
+        "chapterNumber": 14,
         "pdfStartPage": 134,
         "pdfEndPage": 137,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=134",
-        "sourceLabel": "Part 1 · Chapter 13, PDF pages 134–137",
+        "sourceLabel": "Part 1 · Chapter 14, PDF pages 134–137",
         "summary": "Rama, Sita, and Lakshmana take leave of Dasaratha before a grieving household and city. The king struggles to accept their departure, and Rama tries to comfort him without abandoning his duty. Lakshmana's anger at Kaika is restrained by the sight of Rama's serenity. Sita also affirms that her fulfilment lies in accompanying and serving Rama rather than remaining in comfort.\n\nThe departure becomes a test of steadfastness for everyone around them. Rama's concern extends to the family members who will remain behind, and he directs Sumanthra to console the king. Dasaratha repeatedly loses strength under the burden of separation. When he learns that they have gone on foot, his concern turns especially to Sita's tender feet and the hardships of the road. He orders a fast chariot to follow them. The chapter closes with parental affection seeking whatever relief it can provide, even though it cannot change Rama's resolve.",
         "qa": [
           {
@@ -4220,7 +4232,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The three are preparing to begin life in exile.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=134",
-            "sourceLabel": "Part 1 · Chapter 13, PDF pages 134–137"
+            "sourceLabel": "Part 1 · Chapter 14, PDF pages 134–137"
           },
           {
             "q": "What helps Lakshmana restrain his anger at Kaika?",
@@ -4234,7 +4246,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He checks his emotion as he observes Rama's serenity.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=134",
-            "sourceLabel": "Part 1 · Chapter 13, PDF pages 134–137"
+            "sourceLabel": "Part 1 · Chapter 14, PDF pages 134–137"
           },
           {
             "q": "What does Sita say she chiefly seeks?",
@@ -4248,7 +4260,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Her words reaffirm why she is leaving with him.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=134",
-            "sourceLabel": "Part 1 · Chapter 13, PDF pages 134–137"
+            "sourceLabel": "Part 1 · Chapter 14, PDF pages 134–137"
           },
           {
             "q": "What task does Rama give Sumanthra?",
@@ -4262,7 +4274,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama remains concerned for his father's suffering.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=134",
-            "sourceLabel": "Part 1 · Chapter 13, PDF pages 134–137"
+            "sourceLabel": "Part 1 · Chapter 14, PDF pages 134–137"
           },
           {
             "q": "Why does Dasaratha order a chariot to follow them?",
@@ -4276,20 +4288,20 @@ window.VAHINI_BOOKS = [
             "explanation": "He especially fears the effect of the road and sun on Sita.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=134",
-            "sourceLabel": "Part 1 · Chapter 13, PDF pages 134–137"
+            "sourceLabel": "Part 1 · Chapter 14, PDF pages 134–137"
           }
         ]
       },
       {
         "id": "part-1-chapter-14",
         "title": "Into the Forest",
-        "chapter": "Part 1 · Chapter 14 · Into the Forest",
+        "chapter": "Part 1 · Chapter 15 · Into the Forest",
         "part": 1,
-        "chapterNumber": 14,
+        "chapterNumber": 15,
         "pdfStartPage": 138,
         "pdfEndPage": 149,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=138",
-        "sourceLabel": "Part 1 · Chapter 14, PDF pages 138–149",
+        "sourceLabel": "Part 1 · Chapter 15, PDF pages 138–149",
         "summary": "Sumanthra follows with the chariot and carries Rama, Sita, and Lakshmana farther from Ayodhya. The citizens trail them in grief, unwilling to accept separation. Dasaratha's instructions combine recognition of Rama's steadfastness with a lingering hope that at least Sita might return. The travellers nevertheless continue toward the life they have chosen.\n\nGuha, chief of the Nishadas, receives Rama with deep affection. The journey includes the sending back of Sumanthra, the crossing of the river, and the boatman's delighted service. Sita prays to the Ganga and looks forward to returning after the exile. Guha cannot bear to leave at once and asks to accompany them farther, offering his knowledge of the forest. Rama accepts his devotion. Guha and Lakshmana prepare a resting place and food, while Rama ensures that the evening observances are remembered. The chapter portrays friendship and service accompanying the first stages of exile.",
         "qa": [
           {
@@ -4326,7 +4338,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He acts on Dasaratha's urgent instructions.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=138",
-            "sourceLabel": "Part 1 · Chapter 14, PDF pages 138–149"
+            "sourceLabel": "Part 1 · Chapter 15, PDF pages 138–149"
           },
           {
             "q": "How do many citizens respond to Rama's departure?",
@@ -4340,7 +4352,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Their grief fills the route out of Ayodhya.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=138",
-            "sourceLabel": "Part 1 · Chapter 14, PDF pages 138–149"
+            "sourceLabel": "Part 1 · Chapter 15, PDF pages 138–149"
           },
           {
             "q": "Who is Guha?",
@@ -4354,7 +4366,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He welcomes Rama with friendship and devotion.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=138",
-            "sourceLabel": "Part 1 · Chapter 14, PDF pages 138–149"
+            "sourceLabel": "Part 1 · Chapter 15, PDF pages 138–149"
           },
           {
             "q": "What does Sita vow at the Ganga?",
@@ -4368,7 +4380,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Her prayer looks ahead to the completion of the fourteen years.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=138",
-            "sourceLabel": "Part 1 · Chapter 14, PDF pages 138–149"
+            "sourceLabel": "Part 1 · Chapter 15, PDF pages 138–149"
           },
           {
             "q": "Why does Guha ask to accompany Rama farther?",
@@ -4382,20 +4394,20 @@ window.VAHINI_BOOKS = [
             "explanation": "His request arises from love and the wish to be useful.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=138",
-            "sourceLabel": "Part 1 · Chapter 14, PDF pages 138–149"
+            "sourceLabel": "Part 1 · Chapter 15, PDF pages 138–149"
           }
         ]
       },
       {
         "id": "part-1-chapter-15",
         "title": "Among Hermitages",
-        "chapter": "Part 1 · Chapter 15 · Among Hermitages",
+        "chapter": "Part 1 · Chapter 16 · Among Hermitages",
         "part": 1,
-        "chapterNumber": 15,
+        "chapterNumber": 16,
         "pdfStartPage": 150,
         "pdfEndPage": 156,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=150",
-        "sourceLabel": "Part 1 · Chapter 15, PDF pages 150–156",
+        "sourceLabel": "Part 1 · Chapter 16, PDF pages 150–156",
         "summary": "At Bharadwaja's hermitage, Rama and his companions are received with reverence and hospitality. The sage regards their arrival as the fulfilment of long spiritual effort. Rama, meanwhile, continues to conduct himself humbly, requesting guidance as though an ordinary traveller. Bharadwaja sends pupils to show the way, giving them the joy of serving the visitors for part of the journey.\n\nThe route includes further sacred places and the meeting with Valmiki, before the travellers settle at Chitrakuta. Their modest forest dwelling becomes a place of contentment. Sita finds greater happiness in Rama's presence than in the palaces she has left, and Lakshmana serves with attentive care. Rama relates accounts of ancient heroes and spiritual attainment. Thoughts of the family sometimes bring sadness, but companionship and trust restore their peace. The chapter contrasts the simplicity of their surroundings with the richness of their inward life.",
         "qa": [
           {
@@ -4432,7 +4444,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter begins at Bharadwaja's hermitage.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=150",
-            "sourceLabel": "Part 1 · Chapter 15, PDF pages 150–156"
+            "sourceLabel": "Part 1 · Chapter 16, PDF pages 150–156"
           },
           {
             "q": "How does Bharadwaja understand their visit?",
@@ -4446,7 +4458,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He says the sight of the Lord has fulfilled the purpose of his practices.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=150",
-            "sourceLabel": "Part 1 · Chapter 15, PDF pages 150–156"
+            "sourceLabel": "Part 1 · Chapter 16, PDF pages 150–156"
           },
           {
             "q": "Who shows the travellers the next part of the route?",
@@ -4460,7 +4472,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The pupils gladly accept the opportunity to guide them.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=150",
-            "sourceLabel": "Part 1 · Chapter 15, PDF pages 150–156"
+            "sourceLabel": "Part 1 · Chapter 16, PDF pages 150–156"
           },
           {
             "q": "Where do Rama, Sita, and Lakshmana settle?",
@@ -4474,7 +4486,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter describes their peaceful life at Chitrakuta.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=150",
-            "sourceLabel": "Part 1 · Chapter 15, PDF pages 150–156"
+            "sourceLabel": "Part 1 · Chapter 16, PDF pages 150–156"
           },
           {
             "q": "Why is the forest cottage pleasing to Sita?",
@@ -4488,20 +4500,20 @@ window.VAHINI_BOOKS = [
             "explanation": "His presence makes the simple dwelling more attractive to her than former luxuries.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=150",
-            "sourceLabel": "Part 1 · Chapter 15, PDF pages 150–156"
+            "sourceLabel": "Part 1 · Chapter 16, PDF pages 150–156"
           }
         ]
       },
       {
         "id": "part-1-chapter-16",
         "title": "Gloom over Ayodhya",
-        "chapter": "Part 1 · Chapter 16 · Gloom over Ayodhya",
+        "chapter": "Part 1 · Chapter 17 · Gloom over Ayodhya",
         "part": 1,
-        "chapterNumber": 16,
+        "chapterNumber": 17,
         "pdfStartPage": 157,
         "pdfEndPage": 170,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=157",
-        "sourceLabel": "Part 1 · Chapter 16, PDF pages 157–170",
+        "sourceLabel": "Part 1 · Chapter 17, PDF pages 157–170",
         "summary": "Sumanthra finds it painful to return without Rama, and Guha urges him to fulfil his responsibility to the waiting family. Even the horses are described as reluctant to turn away. Back in Ayodhya, his account deepens the grief of the palace. Dasaratha recalls the old curse connected with his accidental killing of a young ascetic and dies in the anguish of separation from his son.\n\nBharatha and Satrughna return to find the city transformed by sorrow. Bharatha learns of his father's death, and the funeral rites are performed. As the full circumstances of Rama's exile become clear, he rejects the advantage his mother intended for him. He seeks to reassure Kausalya and condemns the plan that has harmed the family and kingdom. Kaika comes to recognise the consequences of listening to Manthara. The chapter prepares Bharatha's decision to go to Rama, presenting his response as loyalty rather than ambition.",
         "qa": [
           {
@@ -4538,7 +4550,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Guha reminds him that the queens are waiting to hear his account.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=157",
-            "sourceLabel": "Part 1 · Chapter 16, PDF pages 157–170"
+            "sourceLabel": "Part 1 · Chapter 17, PDF pages 157–170"
           },
           {
             "q": "What is Sumanthra's chief sorrow?",
@@ -4552,7 +4564,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Separation makes the journey back almost unbearable to him.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=157",
-            "sourceLabel": "Part 1 · Chapter 16, PDF pages 157–170"
+            "sourceLabel": "Part 1 · Chapter 17, PDF pages 157–170"
           },
           {
             "q": "Which king dies in this chapter?",
@@ -4566,7 +4578,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His death follows the anguish caused by Rama's departure.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=157",
-            "sourceLabel": "Part 1 · Chapter 16, PDF pages 157–170"
+            "sourceLabel": "Part 1 · Chapter 17, PDF pages 157–170"
           },
           {
             "q": "How does Bharatha regard the throne gained through his mother's plan?",
@@ -4580,7 +4592,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He refuses to profit from Rama's exile.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=157",
-            "sourceLabel": "Part 1 · Chapter 16, PDF pages 157–170"
+            "sourceLabel": "Part 1 · Chapter 17, PDF pages 157–170"
           },
           {
             "q": "What change comes over Kaika?",
@@ -4594,20 +4606,20 @@ window.VAHINI_BOOKS = [
             "explanation": "Bharatha's response helps expose the failure of her intentions.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=157",
-            "sourceLabel": "Part 1 · Chapter 16, PDF pages 157–170"
+            "sourceLabel": "Part 1 · Chapter 17, PDF pages 157–170"
           }
         ]
       },
       {
         "id": "part-1-chapter-17",
         "title": "The Brothers Meet",
-        "chapter": "Part 1 · Chapter 17 · The Brothers Meet",
+        "chapter": "Part 1 · Chapter 18 · The Brothers Meet",
         "part": 1,
-        "chapterNumber": 17,
+        "chapterNumber": 18,
         "pdfStartPage": 171,
         "pdfEndPage": 190,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=171",
-        "sourceLabel": "Part 1 · Chapter 17, PDF pages 171–190",
+        "sourceLabel": "Part 1 · Chapter 18, PDF pages 171–190",
         "summary": "Bharatha tells the assembled elders that he cannot accept the throne in Rama's place. He longs to see his brother, and the people share his wish. The journey to the forest passes through Guha's country and Bharadwaja's hermitage before the party reaches Chitrakuta. Suspicion and anxiety are answered by the recognition of Bharatha's sincere devotion.\n\nThe meeting of the brothers brings both joy and grief. The family and elders discuss Rama's return, while Kaika seeks forgiveness. Yet Rama holds to the obligation created by their father's word and directs Bharatha toward his own responsibility in Ayodhya. The chapter also includes the tenderness of the queens' conversations with Sita. Before leaving, Bharatha asks to see the places made sacred by Rama's presence. With permission, he visits the surrounding hermitages and holy sites, including the well remembered as Bharatha-kupa. His longing expresses itself in reverence for everything associated with Rama.",
         "qa": [
           {
@@ -4644,7 +4656,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He regards accession under these circumstances as morally wrong.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=171",
-            "sourceLabel": "Part 1 · Chapter 17, PDF pages 171–190"
+            "sourceLabel": "Part 1 · Chapter 18, PDF pages 171–190"
           },
           {
             "q": "Where does Bharatha meet Rama?",
@@ -4658,7 +4670,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The journey ends at Rama's forest dwelling.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=171",
-            "sourceLabel": "Part 1 · Chapter 17, PDF pages 171–190"
+            "sourceLabel": "Part 1 · Chapter 18, PDF pages 171–190"
           },
           {
             "q": "What does Kaika seek during the meeting?",
@@ -4672,7 +4684,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The chapter includes her plea after recognising the wrong she has done.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=171",
-            "sourceLabel": "Part 1 · Chapter 17, PDF pages 171–190"
+            "sourceLabel": "Part 1 · Chapter 18, PDF pages 171–190"
           },
           {
             "q": "What request does Bharatha make about the surrounding region?",
@@ -4686,7 +4698,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama approves the desire and directs him to seek Athri's permission.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=171",
-            "sourceLabel": "Part 1 · Chapter 17, PDF pages 171–190"
+            "sourceLabel": "Part 1 · Chapter 18, PDF pages 171–190"
           },
           {
             "q": "What name is associated with the well Bharatha visits?",
@@ -4700,20 +4712,20 @@ window.VAHINI_BOOKS = [
             "explanation": "He reverently sprinkles its water on his head and clears away fallen debris.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=171",
-            "sourceLabel": "Part 1 · Chapter 17, PDF pages 171–190"
+            "sourceLabel": "Part 1 · Chapter 18, PDF pages 171–190"
           }
         ]
       },
       {
         "id": "part-1-chapter-18",
         "title": "Sandals Enthroned",
-        "chapter": "Part 1 · Chapter 18 · Sandals Enthroned",
+        "chapter": "Part 1 · Chapter 19 · Sandals Enthroned",
         "part": 1,
-        "chapterNumber": 18,
+        "chapterNumber": 19,
         "pdfStartPage": 191,
         "pdfEndPage": 196,
         "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=191",
-        "sourceLabel": "Part 1 · Chapter 18, PDF pages 191–196",
+        "sourceLabel": "Part 1 · Chapter 19, PDF pages 191–196",
         "summary": "Bharatha asks Rama how he can bear the years of separation while serving him in the kingdom. Rama replies with counsel on duty, justice, and the responsibility of a ruler to sustain every section of the people. Both brothers, he explains, must honour their father's command in their different places. Vasishta and Janaka remain sources of guidance for Bharatha.\n\nRama's sandals become the visible sign of the authority Bharatha refuses to claim for himself. He carries them back reverently and places them upon the throne. He then withdraws from palace luxury to Nandigrama, living austerely while his mind remains fixed on Rama's return. His dress and manner of life mirror the simplicity of the brothers in the forest. Part 1 ends with a form of service shaped by absence: Bharatha accepts the work of governance while dedicating its authority and purpose to Rama.",
         "qa": [
           {
@@ -4750,7 +4762,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His service in the kingdom corresponds to the period of exile.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=191",
-            "sourceLabel": "Part 1 · Chapter 18, PDF pages 191–196"
+            "sourceLabel": "Part 1 · Chapter 19, PDF pages 191–196"
           },
           {
             "q": "Whom does Rama name as guides available to Bharatha?",
@@ -4764,7 +4776,7 @@ window.VAHINI_BOOKS = [
             "explanation": "Rama reassures him that wise guidance remains available.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=191",
-            "sourceLabel": "Part 1 · Chapter 18, PDF pages 191–196"
+            "sourceLabel": "Part 1 · Chapter 19, PDF pages 191–196"
           },
           {
             "q": "What does Bharatha place on the throne?",
@@ -4778,7 +4790,7 @@ window.VAHINI_BOOKS = [
             "explanation": "The sandals represent Rama's authority during his absence.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=191",
-            "sourceLabel": "Part 1 · Chapter 18, PDF pages 191–196"
+            "sourceLabel": "Part 1 · Chapter 19, PDF pages 191–196"
           },
           {
             "q": "Where does Bharatha adopt an austere life?",
@@ -4792,7 +4804,7 @@ window.VAHINI_BOOKS = [
             "explanation": "He leaves the luxury of Ayodhya for a simple residence there.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=191",
-            "sourceLabel": "Part 1 · Chapter 18, PDF pages 191–196"
+            "sourceLabel": "Part 1 · Chapter 19, PDF pages 191–196"
           },
           {
             "q": "What remains the centre of Bharatha's thoughts?",
@@ -4806,7 +4818,7 @@ window.VAHINI_BOOKS = [
             "explanation": "His ascetic life and administration are sustained by devotion to Rama.",
             "type": "recall",
             "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf#page=191",
-            "sourceLabel": "Part 1 · Chapter 18, PDF pages 191–196"
+            "sourceLabel": "Part 1 · Chapter 19, PDF pages 191–196"
           }
         ]
       },
