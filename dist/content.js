@@ -2893,6 +2893,16 @@ window.VAHINI_BOOKS = [
     "coverage": "All 32 chapters from Parts 1 and 2 in their original order",
     "topics": [
       {
+        "id": "preface",
+        "title": "Preface",
+        "chapter": "Preface",
+        "sourceUrl": "assets/ramakatha-rasavahini-part-1.pdf",
+        "sourceLabel": "Preface",
+        "summary": "",
+        "qa": [],
+        "quiz": []
+      },
+      {
         "id": "part-1-chapter-01",
         "title": "Rama—Prince and Principle",
         "chapter": "Part 1 · Chapter 1 · Rama—Prince and Principle",
