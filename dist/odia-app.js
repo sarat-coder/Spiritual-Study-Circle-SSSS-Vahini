@@ -29,6 +29,27 @@
   let bookIndex = 0, chapters = books[0]?.chapters || [];
   const book = () => books[bookIndex];
   const unit = () => book().unitLabel === 'section' ? 'ଅଂଶ' : 'ଅଧ୍ୟାୟ';
+  const bookArtwork = bookId => {
+    const covers = {
+      'leela-kaivalya':['leela-kaivalya-cover.webp','Leela Kaivalya Vahini book cover featuring Bhagawan Sri Sathya Sai Baba','Leela Kaivalya Vahini · Original book cover'],
+      'jnana-vahini':['jnana-vahini-cover.webp','Jnana Vahini book cover featuring Bhagawan Sri Sathya Sai Baba writing','Jnana Vahini · Original book cover'],
+      'prashanthi-vahini':['prasanthi-vahini-cover.webp','Prasanthi Vahini book cover featuring Bhagawan Sri Sathya Sai Baba','Prasanthi Vahini · Original book cover'],
+      'prasnottara':['prasnottara-vahini-cover.webp','Prasnottara Vahini book cover featuring Bhagawan Sri Sathya Sai Baba','Prasnottara Vahini · Original book cover'],
+      'prema-vahini':['prema-vahini-cover.webp','Prema Vahini book cover featuring Krishna with a cow','Prema Vahini · Original book cover'],
+      'sandeha-nivarini':['sandeha-nivarini-cover.webp','Sandeha Nivarini book cover featuring Bhagawan Sri Sathya Sai Baba','Sandeha Nivarini · Original book cover'],
+      'sathya-sai':['sathya-sai-vahini-cover.webp','Sathya Sai Vahini book cover featuring Bhagawan Sri Sathya Sai Baba','Sathya Sai Vahini · Original book cover'],
+      'sutra':['sutra-vahini-cover.webp','Sutra Vahini book cover featuring Bhagawan Sri Sathya Sai Baba','Sutra Vahini · Original book cover'],
+      'upanishad':['upanishad-vahini-cover.webp','Upanishad Vahini book cover featuring Shiva in meditation','Upanishad Vahini · Original book cover'],
+      'bhagavata-vahini':['bhagavata-vahini-cover.webp','Bhagavatha Vahini book cover featuring child Krishna','Bhagavatha Vahini · Original book cover'],
+      'geetha-vahini':['geeta-vahini-cover.webp','Geeta Vahini book cover showing Krishna and Arjuna’s chariot','Geeta Vahini · Original book cover'],
+      'ramakatha-rasavahini':['ramakatha-rasavahini-cover.webp','Ramakatha Rasavahini Deluxe Edition book cover','Ramakatha Rasavahini · Original book cover'],
+      'dhyana-vahini':['dhyana-vahini-cover.webp','Dhyana Vahini book cover featuring Bhagawan Sri Sathya Sai Baba','Dhyana Vahini · Original book cover'],
+      'vidya':['vidya-vahini-cover.webp','Vidya Vahini book cover featuring the goddess of learning','Vidya Vahini · Original book cover'],
+      'dharma-vahini':['dharma-vahini-cover.webp','Dharma Vahini book cover displaying symbols of world religions','Dharma Vahini · Original book cover']
+    };
+    const cover=covers[bookId];
+    return cover ? '<figure class="book-art"><img src="assets/'+cover[0]+'" width="256" height="384" alt="'+cover[1]+'"><figcaption>'+cover[2]+'</figcaption></figure>' : '';
+  };
   const tabs = {readbook:'ପୁସ୍ତକ ପଢ଼ନ୍ତୁ', summary:'ସାରାଂଶ', questions:'ପ୍ରଶ୍ନୋତ୍ତର', quiz:'ପ୍ରଶ୍ନମାଳା'};
   const isBhagavataReadBook = (bookId=book().id, chapterId=current().id) => (bookId==='bhagavata-vahini' && ['preface','chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11','chapter-12','chapter-13','chapter-14','chapter-15','chapter-16','chapter-17','chapter-18','chapter-19','chapter-20','chapter-21','chapter-22','chapter-23','chapter-24','chapter-25','chapter-26','chapter-27','chapter-28','chapter-29','chapter-30','chapter-31','chapter-33','chapter-34','chapter-35','chapter-36','chapter-37','chapter-38','chapter-39','chapter-40','chapter-41','chapter-42'].includes(chapterId)) || (bookId==='geetha-vahini' && ['preface','chapter-01','chapter-02','chapter-03','chapter-04','chapter-05','chapter-06','chapter-07','chapter-08','chapter-09','chapter-10','chapter-11','chapter-12','chapter-13','chapter-14','chapter-15','chapter-16','chapter-17','chapter-18','chapter-19','chapter-20','chapter-21','chapter-22','chapter-23','chapter-24','chapter-25','chapter-26','chapter-27'].includes(chapterId)) || (bookId==='ramakatha-rasavahini' && chapterId==='preface');
   const defaultTab = i => isBhagavataReadBook(book().id,chapters[i]?.id) ? 'readbook' : 'summary';
@@ -73,6 +94,9 @@
     document.title = `${t.title} — ${book().title}`;
     $('odia-book').innerHTML=books.map((b,i)=>`<option value="${i}" ${i===bookIndex?'selected':''}>${esc(b.title)}</option>`).join('');
     document.querySelector('.book-header h2').textContent=book().title;
+    const art=bookArtwork(book().id);
+    document.querySelector('.book-header').classList.toggle('with-art',!!art);
+    document.querySelector('.book-header').innerHTML='<div class="book-copy"><p class="eyebrow">'+(book().title)+'</p><h2>'+esc(book().title)+'</h2><p class="description"></p><div class="book-meta"><span>ଓଡ଼ିଆ ଅଧ୍ୟୟନ ସଂସ୍କରଣ</span><a href="'+esc((t.sourceUrl || book().sourceUrl).split('#')[0])+'" target="_blank" rel="noopener noreferrer">ମୂଳ ଇଂରାଜୀ ପୁସ୍ତକ (PDF) ↗</a></div></div>'+art;
     const topicOffset=['bhagavata-vahini','geetha-vahini','ramakatha-rasavahini'].includes(book().id)?1:0;
     document.querySelector('.book-header .description').textContent=`ମୂଳ ପୁସ୍ତକର କ୍ରମରେ ${num(chapters.length-topicOffset)}ଟି ${unit()}। ପ୍ରତି ${unit()}ରେ ସାରାଂଶ, ପାଞ୍ଚଟି ପ୍ରଶ୍ନୋତ୍ତର ଓ ପାଞ୍ଚଟି ବହୁବିକଳ୍ପ ପ୍ରଶ୍ନ ରହିଛି।`;
     document.querySelector('.book-meta a').href=(t.sourceUrl || book().sourceUrl).split('#')[0];
