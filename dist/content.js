@@ -35453,6 +35453,17 @@ window.VAHINI_BOOKS = [
     "pdfUrl": "assets/sathya-sai-vahini.pdf",
     "topics": [
       {
+        "id": "preface",
+        "title": "Preface",
+        "chapter": "Preface",
+        "chapterNumber": 0,
+        "sourceUrl": "assets/sathya-sai-vahini.pdf",
+        "sourceLabel": "Preface",
+        "summary": "",
+        "qa": [],
+        "quiz": []
+      },
+      {
         "id": "chapter-01",
         "title": "The Supreme Reality",
         "chapter": "Chapter 1 · The Supreme Reality",
